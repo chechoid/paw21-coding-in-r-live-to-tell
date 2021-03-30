@@ -94,7 +94,7 @@ legend("bottomright", legend=c("Logistics Regression", "Decision Tree"),
 
 # Gráfico de Niveles de Satisfacción y de Desempeño por empleados actuales y de baja
 ggplot(datos_rh, aes(x = last_evaluation, y = satisfaction_level, color = factor(left)))+
-  geom_point(alpha = 0.8)+
+  geom_point(alpha = 0.7, size = 2)+
   scale_color_manual(values = c("#BFC9CA","#2874A6"))+
   labs(title = "Performance and Satisfaction Levels",
        subtitle = "0 = Current Employee, 1 = Left",
@@ -122,77 +122,19 @@ library(ggthemes)
 ggplot(modelo_hr_test, aes(x = last_evaluation, y = satisfaction_level, color = factor(cluster)))+
   geom_point(alpha = 0.8)+
   scale_color_colorblind()+
-  labs(title = "Clusters de Desempeño y de Satisfaccion",
-       x= "Nivel de Desempeño",
-       y= "Nivel de Satisfacción",
-       color = "Cluster")
+  labs(title = "Employee Clusters by Performance and Satisfaction",
+       x= "Performance",
+       y= "Satisfaction",
+       color = "Cluster") +
+  theme_light()
 
-
-# Datos para graficar correlaciones negativas y positivas
-
-p<- c(25,22,20,16,12,8,5,3,18,23,13,9,23,8,2)
-a<- c(3,5,8,12,16,20,22,25,7,6,15,18,7,19,23)
-dfn <- data.frame(a, p)
-r <- c(1,2,3,4,5,6,7,8,9,10)
-s <- c(1,2,3,4,5,6,7,8,9,10)
-dfp <- data.frame(r, s)
-
-# Correlación negativa
-ggplot(dfn, aes(p, a))+ ggtitle("Correlación Negativa")+ 
-  geom_point(size = 3) + geom_smooth(method = "lm", se = F)
-
-# Correlación positiva
-ggplot(dfp, aes(s, r))+
-  geom_point(size = 3) + geom_smooth(method = "lm", se = F)+
-  ggtitle("Correlación Positiva")
-
-
-#### Regresión Lineal Simple ####
-library(googlesheets4)
-library(gargle)
-library(scales)
-
-gs4_deauth()
-options(scipen = 999) # Cambia la notación científica de los gráficos
-
-# Cargar este archivo lleva un tiempito... relax
-encuesta_sysarmy <- sheets_read("1_db6zEAMvr-1GQjJb4hV-rSQfJ9w6GmezbqKJ2JJn7I", skip = 9)
-
-# Preprocesamiento
-analisis <- encuesta_sysarmy %>%
-  select('Trabajo de', `Salario mensual BRUTO (en tu moneda local)`, 'Años de experiencia') %>%
-  rename(Puesto = 'Trabajo de',
-         Sueldo_Bruto = `Salario mensual BRUTO (en tu moneda local)`,
-         Experiencia = 'Años de experiencia') %>%
-  filter(Puesto == "Developer",
-         between(Sueldo_Bruto, 20000, 1000000)) %>%
-  mutate(Experiencia = as.numeric(unlist(Experiencia)))
-
-
-mod_dev <- lm(Sueldo_Bruto ~ Experiencia, data= analisis)
-
-library(broom)
-
-tidy(mod_dev)
-
-# Gráfico de regresión lineal simple
-analisis %>%
-  filter(Puesto == "Developer") %>%
-  ggplot(aes(Experiencia, Sueldo_Bruto))+
-  geom_point(alpha = 0.3, size = 2, color="#0794DB")+
-  geom_smooth(method = "lm")+
-  scale_y_continuous(labels = scales::comma_format(big.mark = ".", decimal.mark = ",")) +
-  labs(title= "Relación entre sueldo bruto y años de experiencia",
-       subtitle = "Developers en Argentina",
-       x="Experiencia",
-       y= "Sueldo Bruto",
-       caption = "Fuente: Encuesta de Sueldos Sysarmy Enero 2020") + 
-  theme_bw()
 
 
 #### Text Mining ####
 
 library(reshape2)
+library(googlesheets4)
+library(gargle)
 
 EncuestaHomeOffice <- sheets_read("1g2q3c_MMrBc4MehO4Yjktpu2fk7s7M8Bn2wIgV6yQHo")
 
@@ -299,9 +241,10 @@ eho_text_nrc %>%
   scale_fill_manual(values = c("#F5B041","#5DADE2"))+
   zx +
   coord_flip() +
-  labs(title="Ranking de sentimientos",
-       x = "Sentimiento",
-       y = "Cantidad de Apariciones")
+  labs(title="Sentiment Analysis",
+       caption = "Source: Home Office Survey 2020",
+       x = "Sentiment",
+       y = "Times")
 
 
 
@@ -313,5 +256,243 @@ webshot::install_phantomjs()
 eho_text_vacio %>%
   filter(Cambios_Futuros == "Sí") %>%
   count(palabra, sort = TRUE) %>%
+  filter(n >=3) %>% 
   ungroup() %>%
-  wordcloud2( size = 0.6, shape = "triangle-forward",color = rep_len(c("#4445f8", "#7563fa", "#9881fc", "#b59ffe"), nrow(.)))
+  wordcloud2( size = 0.6, color = rep_len(c("#4445f8", "#7563fa", "#9881fc", "#b59ffe"), nrow(.)))
+
+
+# Plots --------------------
+
+library(googlesheets4)
+library(gargle)
+library(lubridate)
+library(tidyverse)
+library(extrafont)
+
+loadfonts(quiet = T)
+
+expectativas_laborales <- gs4_get("1HeFbgf0aubb5HBSFJTRzGCpW536O1cji7I6lgiNqvqg") %>%
+  read_sheet()
+
+exp_lab <- expectativas_laborales%>%
+  rename(Expectativa = Período) %>%
+  pivot_longer(-Expectativa, names_to = "Periodo", values_to = "Valor") %>%
+  mutate(Periodo = dmy(Periodo),
+         Trimestre = quarter(Periodo, with_year = TRUE, fiscal_start = 1),
+         Expectativa = factor(Expectativa, levels = c("La dotación aumentará",
+                                                      "La dotación disminuirá",
+                                                      "La dotación se mantendrá"),
+                              labels = c("Aumentará", "Disminuirá", "Sin Cambios"))) %>%
+  filter(Trimestre > 2013.04) %>%
+  group_by(Trimestre) %>%
+  summarise(Exp_Aumento = mean(Valor[Expectativa== "Aumentará"]),
+            Exp_Disminuye = mean(Valor[Expectativa== "Disminuirá"]),
+            Exp_Igual = mean(Valor[Expectativa == "Sin Cambios"]))
+
+exp_empresaria <- exp_lab %>%
+  pivot_longer(-Trimestre, names_to = "Expectativa", values_to = "Valor") %>%
+  mutate(Expectativa = factor(Expectativa, levels = c("Exp_Aumento",
+                                                      "Exp_Disminuye",
+                                                      "Exp_Igual"),
+                              labels = c("Aumentará", "Disminuirá", "Sin Cambios"))) %>% 
+  filter(Expectativa != "Sin Cambios")
+
+
+ggplot(exp_empresaria, aes(x = Trimestre, y = Valor,  color = Expectativa)) +
+  geom_line(size = 1)+
+  scale_color_manual(values = c("#2980B9", "#E67E22", "#BDC3C7"))+
+  geom_point()+
+  geom_smooth() +
+  labs(title = "Promedio de Expectativas Empresarias y Puestos Vacantes por trimestre",
+       subtitle = "Fuente: Encuesta de Índicadores Laborales",
+       caption = "#30diasdegraficos #RStats_ES",
+       x = "Trimestre", y = "Valor (porcentaje)") +
+  theme(panel.grid = element_blank(),
+        panel.grid.major.y = element_line(color = "#D7DBDD"),
+        panel.grid.minor.y = element_line(color = "#D7DBDD"),
+        panel.background = element_blank(),
+        text = element_text(family = "Lucida Sans Typewriter")) +
+  scale_y_continuous(limits = c(0,15))+
+  geom_vline(aes(xintercept = 2015.4), linetype = 2, alpha = 0.3)+
+  geom_vline(aes(xintercept = 2019.4), linetype = 2, alpha = 0.3)
+
+
+# Sergio 2
+
+library(tidyverse)
+library(ggeconodist)
+library(ggthemes)
+library(extrafont)      # Permite utilizar otras fuentes en los gráficos y salidas
+library(scales)
+
+
+# Datos de ejemplo ------------
+
+rh <- read_delim("data/rh_ar.csv", delim = ";")
+
+
+# Preparación ------------
+
+
+loadfonts(quiet = T)
+
+estilov <- theme(panel.grid = element_blank(),
+                 plot.background = element_rect(fill = "#FBFCFC"),
+                 panel.background = element_rect(fill = "#FBFCFC"),
+                 panel.grid.major.x = element_line(color = "#AEB6BF"),
+                 text = element_text(family = "Ubuntu"))
+
+
+
+# Compensación vs. Desempeño ---------
+
+rh <- rh %>% 
+  filter(puesto %in% c("Analista", "HRBP", "Responsable",
+                       "Jefe", "Gerente")) %>% 
+  mutate(performance = as.integer(runif(490, min = 1, max = 4)),
+         performance = factor(performance,
+                              levels = c(1,2,3),
+                              labels = c("Bajo", "Regular", "Top")),
+         puesto = factor(puesto, 
+                         levels = c("Analista", "HRBP", "Responsable",
+                                    "Jefe", "Gerente")))
+
+
+rh %>% 
+  ggplot(aes(x = puesto, y = sueldo_ft)) +
+  geom_econodist(width = 0.5) +
+  geom_point(aes(y = sueldo_bruto, color = performance), size = 2, alpha = 0.3,
+             position = position_jitter(width = 0.2)) +
+  scale_color_colorblind() +
+  scale_y_continuous(labels = comma_format(big.mark = ".", decimal.mark = ";")) +
+  coord_flip() +
+  labs(title = "Distribución de sueldos por puesto y desempeño",
+       x = "", y = "", color = "Desempeño",
+       caption = "Datos de desempeño generados aleatoriamente") +
+  estilov
+
+
+
+
+# Ariadna Angulo Brunet ----------------
+# https://github.com/AnguloB/datosdemiercoles/tree/master/00_30diasDeGraficos
+
+# dia 4 facetas
+#Datos del SIDC Cat (link  directo en el script )
+backcolor<-"white"
+colortext<-"black"
+#Defino paleta de colores
+palette30<- c("#FD7FC4",  "#FF8A33", "#EC4176", "#A13770" , "#33DDFF", "#FFEC33", "#5564eb", "#4c2882")
+
+#Eligo la fuente que quiero utilizar
+library(extrafont) # la primera vez ejecutar font_import()
+loadfonts(quiet = T)
+
+font<- "Trebuchet MS" #Fuente que voy a utlizar
+
+library(readr)
+Citaciones <- read_csv("https://raw.githubusercontent.com/AnguloB/datosdemiercoles/master/00_30diasDeGraficos/05_arco/Citaciones.csv")
+
+#selecciono solo las variables que me interesan
+Citaciones%>%
+  select(Authors, Title) ->data
+
+data<-data%>%separate_rows(Authors, sep = ",") #Separo por coma los autores en cada linea
+data<-data[seq(1,nrow(data),2) ,] #me quedo solo con los pares
+data$Authors<-str_trim(data$Authors) #saco espacios en blanco
+data<-data%>%
+  group_by(Title) %>% 
+  mutate(titleid=factor(group_indices())) #cambio el titulo por un ID
+
+data<-data[,c("titleid","Authors")]
+library(stringi)
+data$Authors<-stri_trans_general(data$Authors, "Latin-ASCII")
+
+
+totals<-data%>% #Creo el total de articulos de cada 
+  group_by(Authors)%>%
+  count()%>%
+  arrange(desc(n))
+names(totals)<-c("from", "totalreal") 
+
+# transformo los datos de forma que haya la correspondencia entre autores
+dta <- full_join(data, data, c('titleid' = 'titleid')) %>% 
+  select(-titleid) %>% 
+  filter(Authors.x != Authors.y) %>% 
+  group_by(Authors.x, Authors.y) %>% 
+  summarise(total = n())
+
+
+names(dta)<- c("from", "to", "total")
+
+dta<-dta%>%
+  left_join(totals)%>%
+  select(from, to, totalreal)
+
+
+
+
+library(ggraph)
+
+
+
+palette30  <- c("grey60","#FFEC33","#33DDFF","#EC4176","#FF8A33","#5564eb")
+
+
+
+p1<-ggraph(dta, 'linear') +
+  geom_edge_arc(aes(color=factor(totalreal), alpha=factor(totalreal)),  fold=FALSE)+theme_bw()+
+  geom_node_point(size=2,alpha=0.5) +
+  scale_edge_colour_manual(values=palette30)+
+  theme(text=element_text(family = font),
+        plot.background = element_rect(fill = "white", color=NA), 
+        strip.background =element_blank(),
+        panel.border = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        axis.ticks = element_blank(),
+        legend.background = element_rect(fill=backcolor,
+                                         size=0.5, linetype="solid"),
+        plot.title = element_text(size=20, hjust=0,face="bold", color="#9B77CF"), 
+        plot.subtitle = element_text(face="italic", size=12), 
+        axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        legend.position = "none")+
+  labs(title= "Arch plot by @AnguloBrunet", 
+       fill="", 
+       subtitle = "A journey around alpha and omega to estimate internal consistency reliability: \n
+       autores y autoras que han citado el articulo y relación entre ellos", 
+       y = "", 
+       x = "")+
+  expand_limits(x = c(-1.2, 1.2), y = c(-5.6, 1.2)) 
+
+
+p2<-totals%>%
+  group_by(totalreal)%>%
+  count()%>%
+  ggplot(aes(x=factor(totalreal), y=n, fill=factor(totalreal)))+
+  geom_col(aes( alpha=factor(totalreal)))+
+  geom_text(aes(label=paste0("N = ",n), hjust=-.25))+
+  scale_fill_manual(values=palette30)+
+  coord_flip()+theme_bw()+
+  theme(text=element_text(family = font, color="#9B77CF"),
+        plot.background = element_rect(fill = "white", color=NA), 
+        strip.background =element_blank(),
+        panel.border = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        axis.ticks = element_blank(), 
+        axis.text.x = element_blank(), 
+        legend.position = "none", 
+        plot.caption = element_text( face="italic", size=10, hjust = 1, color="black"))+
+  labs(title ="",
+       subtitle="\n \n",
+       caption = "Viladrich, Angulo-Brunet y Doval (2017) \n Hecho por @AnguloBrunet \n #30díasdegráficos \n Fuente: Scopus 15 mayo 2020", 
+       y="Autores", 
+       x="Nº articulos")+
+  scale_y_continuous(position = "right", limits=c(0,180))
+library(cowplot)
+
+plot_grid(p1, p2, nrow=1, rel_widths = c(0.8, .2))
+
+ggsave("05_arco.png", height = 5.89, width=8.58)

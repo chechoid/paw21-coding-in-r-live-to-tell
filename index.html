@@ -25,6 +25,10 @@
     <link href="libs/vis/vis.css" rel="stylesheet" />
     <script src="libs/vis/vis.min.js"></script>
     <script src="libs/visNetwork-binding/visNetwork.js"></script>
+    <link href="libs/wordcloud2/wordcloud.css" rel="stylesheet" />
+    <script src="libs/wordcloud2/wordcloud2-all.js"></script>
+    <script src="libs/wordcloud2/hover.js"></script>
+    <script src="libs/wordcloud2-binding/wordcloud2.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -112,7 +116,47 @@ class: inverse, center, middle
 
 We can use graph analysis to carry out Organizational Network Analysis.
 
-In this simple example we are analyzing LinkedIn's connections of 3 People Analytics, to find out Data Scientists they have in common for a referral program. 🤯`
+In this simple example we are analyzing LinkedIn's connections of 3 People Analytics, to find out Data Scientists they have in common for a referral program. 🤯
+
+]
+
+---
+## Text Mining
+
+You can analyze text in surveys, resumes, opinions in sites like Glassdoor and so on. This is an analysis on a Home Office survey from last year.
+
+.pull-left[
+&lt;img src="index_files/figure-html/tm1-1.png" width="70%" /&gt;
+]
+
+.pull-right[
+<div id="htmlwidget-391835d89f0f52efee05" style="width:75%;height:504px;" class="wordcloud2 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-391835d89f0f52efee05">{"x":{"word":["empresas","creo","productividad","muchas","teletrabajo","trabajar","modalidad","cuenta","forma","objetivos","puede","tener","casa","herramientas","oficina","situación","costos","muchos","cambiar","empleado","equipo","manera","mayor","pandemia","personas","remoto","tenían","trabajando","cambio","dar","demostrar","día","empresa","experiencia","formas","igual","lugar","mucho","necesario","necesidad","oportunidad","posible","resultados","ser","tareas","casos","conectados","cosas","cultura","dudas","empleador","existía","hacer","lado","lograr","mantener","mejor","metodología","misma","mucha","posibilidad","procesos","recursos","seguir","trabaja","vamos","ver","vida"],"freq":[21,19,16,14,12,12,9,8,8,8,8,8,7,7,7,7,6,6,5,5,5,5,5,5,5,5,5,5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],"fontFamily":"Segoe UI","fontWeight":"bold","color":["#4445f8","#7563fa","#9881fc","#b59ffe","#4445f8","#7563fa","#9881fc","#b59ffe","#4445f8","#7563fa","#9881fc","#b59ffe","#4445f8","#7563fa","#9881fc","#b59ffe","#4445f8","#7563fa","#9881fc","#b59ffe","#4445f8","#7563fa","#9881fc","#b59ffe","#4445f8","#7563fa","#9881fc","#b59ffe","#4445f8","#7563fa","#9881fc","#b59ffe","#4445f8","#7563fa","#9881fc","#b59ffe","#4445f8","#7563fa","#9881fc","#b59ffe","#4445f8","#7563fa","#9881fc","#b59ffe","#4445f8","#7563fa","#9881fc","#b59ffe","#4445f8","#7563fa","#9881fc","#b59ffe","#4445f8","#7563fa","#9881fc","#b59ffe","#4445f8","#7563fa","#9881fc","#b59ffe","#4445f8","#7563fa","#9881fc","#b59ffe","#4445f8","#7563fa","#9881fc","#b59ffe"],"minSize":0,"weightFactor":5.14285714285714,"backgroundColor":"white","gridSize":0,"minRotation":-0.785398163397448,"maxRotation":0.785398163397448,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
+
+]
+
+---
+## Interactive applications in Shiny
+
+.left-column[
+&lt;img src="https://www.shinyapps.dev/package/shiny/featured.png" /&gt;
+]
+
+.right-column[
+**Shiny** allows you to build interactive applications that makes data users interact, navigate and explore data, to find their own insights.
+
+You can check this example by [Edward Parker](https://www.lshtm.ac.uk/aboutus/people/parker.edward) and his [Covid-19 Tracker](https://vac-lshtm.shinyapps.io/ncov_tracker/?_ga=2.199884654.193509739.1617140093-220020266.1617140093).
+
+&lt;img src="Archivos/shiny_app_example.png" width="70%" /&gt;
+]
+
+---
+## Plots
+
+You can do any kind of plot in R. Check this github repo by [Ariadna Angulo Brunet](https://github.com/AnguloB/datosdemiercoles).
+.center[
+
+&lt;img src="index_files/figure-html/plot2-1.png" width="40%" /&gt;
 
 ]
 ---
@@ -127,7 +171,7 @@ In this simple example we are analyzing LinkedIn's connections of 3 People Analy
 * ### 🤓 HR Nerd
 * 💪 Lic. en Relaciones del Trabajo con formación en Data Mining
 * 💹 SME People Analytics en [Data IQ](https://dataiq.com.ar/)
-* 👩‍🏫 Profesor de People Analytics en ITBA
+* 👨‍🏫 Profesor de People Analytics en ITBA
 * ✈️ Fundador de [Data 4HR](https://data-4hr.com/)
 * 🍷 Fundador del [Club de R para RRHH](https://r4hr.club)
 * 👑 Meme Manager en varias comunidades
