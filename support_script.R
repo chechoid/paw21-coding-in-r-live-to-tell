@@ -1,91 +1,6 @@
----
-title: "Coding in R in HR"
-subtitle: "A Quick Guide to Learning to Code and Live to Tell the Tale"
-institute: "Tucana"
-author: '`r icons::fontawesome("linkedin")` [Sergio Garcia Mora](https://www.linkedin.com/in/sergiogarciamora/)<br><br>`r icons::fontawesome("smile-wink")` [Data IQ](https://dataiq.com.ar)'
-output:
-  xaringan::moon_reader:
-    lib_dir: libs
-    css: xaringan-themer.css
-    nature:
-      ratio: 191:100
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
----
-
-```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE)
-knitr::opts_chunk$set(fig.retina = 3, warning = FALSE, message = FALSE)
-```
-
-```{r xaringan-themer, include=FALSE, warning=FALSE}
-library(xaringanthemer)
-style_duo_accent(
-  primary_color = "#03162C",
-  secondary_color = "#0256B6",
-  inverse_header_color = "#FFFFFF",
-  header_font_google = google_font("Nunito", "400"),
-  text_font_google   = google_font("Roboto", "280", "280i"),
-  code_font_google   = google_font("Fira Mono")
-)
-```
-
-```{r metathis, echo=FALSE}
-library(metathis)
-meta() %>%
-  meta_name("github-repo" = "chechoid/paw21-coding-in-r-live-to-tell") %>% 
-  meta_social(
-    title = "Coding in R in HR: A Quick Guide to Learning to Code, and Live to Tell the Tale",
-    description = paste(
-      "This is the presentation for Tucana's People Analytics World 2021 about how to start coding in R and keeping the momemtum going",
-      "Developed by Sergio Garcia Mora."
-    ),
-    url = "https://coding-in-r-in-hr.netlify.app/",
-    image = "https://github.com/r4hr/kiwi2020/blob/main/kiwi-cover.png?raw=true",
-    image_alt = paste(
-      "Coding in R in HR: A Quick Guide to Learning to Code, and Live to Tell the Tale", 
-      "Tucana's People Analytics World 2021", 
-      "Author: Sergio Garcia Mora"
-    ),
-    og_type = "website",
-    og_author = "Sergio Garcia Mora",
-    twitter_card_type = "summary_large_image",
-    twitter_creator = "@sergiogarciamor",
-    twitter_site = "@data4hr"
-  )
-```
+#### Análisis Predictivos Atrition ####
 
 
----
-class: inverse, center, middle
-
-#What is R?
-
----
-# What is R
-
-**R** is an open source language, that was firstly known as a statistical analysis language.
-
---
-
-Nowadays, and thanks to the community of developers you can use R to a lot more of things, expanding its capabilities.
-
---
-
-You can work with any kind of data, and make any analysis that you imagine.
-
----
-class: inverse, center, middle
-# What things can you do in R?
-
----
-## Predictive Analytics
-
-.pull-left[
-`r emo::ji("crystal")` A well know use case, is to perform *predictive analysis", for instance to predict Employee's Attrition.
-
-```{r pred1, echo=FALSE}
 library(tidyverse) # Limpiar y manipular datos
 library(caret) # Paquete para hacer análisis predictivos
 library(rpart)
@@ -161,11 +76,6 @@ modelo_hr_test <- modelo_hr_test %>%
 conf_matrix_arbol <- table(modelo_hr_test$prediccion_arbol, modelo_hr_test$left)
 
 
-```
-
-]
-.pull-right[
-```{r pred2, echo=FALSE, fig.show='hold'}
 
 rocobj1 <- plot.roc(modelo_hr_test$left, modelo_hr_test$score,
                     main="Curva ROC",percent=TRUE, col="#1c61b6")
@@ -174,19 +84,15 @@ rocobj2 <- lines.roc(modelo_hr_test$left, modelo_hr_test$score_arbol,
                      percent=TRUE, col="#008600")
 
 testobj <- roc.test(rocobj1, rocobj2)
+
+
 legend("bottomright", legend=c("Logistics Regression", "Decision Tree"), 
        col=c("#1c61b6", "#008600"), lwd=2)
-```
 
 
-]
----
-## Cluster Analysis
+#### Clustering ####
 
-.pull-left[
-
-```{r clus1, echo = FALSE}
-# Scatter Plot of Satisfaction and Performance Levels
+# Gráfico de Niveles de Satisfacción y de Desempeño por empleados actuales y de baja
 ggplot(datos_rh, aes(x = last_evaluation, y = satisfaction_level, color = factor(left)))+
   geom_point(alpha = 0.8)+
   scale_color_manual(values = c("#BFC9CA","#2874A6"))+
@@ -195,13 +101,8 @@ ggplot(datos_rh, aes(x = last_evaluation, y = satisfaction_level, color = factor
        x= "Performance",
        y= "Satisfaction",
        color = "Employee \n de Status")
-```
-]
 
---
 
-.pull-right[
-```{r clus2, echo=FALSE}
 # Seleccionamos las variables para elegir los clusters
 variables_cluster <- modelo_hr_test %>%
   select(last_evaluation, satisfaction_level)
@@ -221,99 +122,77 @@ library(ggthemes)
 ggplot(modelo_hr_test, aes(x = last_evaluation, y = satisfaction_level, color = factor(cluster)))+
   geom_point(alpha = 0.8)+
   scale_color_colorblind()+
-  labs(title = "Employee Clusters by Performance and Satisfaction",
-       subtitle = "Clusters defined with k-means algorithm",
-       x= "Performance",
-       y= "Satisfaction",
-       color = "Cluster") +
-  theme_light()
-```
-
-]
----
-## Organizational Network Analysis
-
-.pull-left[
-```{r ona, echo=FALSE}
-library(igraph)
-library(readr)
-library(visNetwork)
-library(networkD3)
+  labs(title = "Clusters de Desempeño y de Satisfaccion",
+       x= "Nivel de Desempeño",
+       y= "Nivel de Satisfacción",
+       color = "Cluster")
 
 
-#### Datos ####
+# Datos para graficar correlaciones negativas y positivas
 
-contactos <- read_delim("data/contactos.csv", delim = ";")
+p<- c(25,22,20,16,12,8,5,3,18,23,13,9,23,8,2)
+a<- c(3,5,8,12,16,20,22,25,7,6,15,18,7,19,23)
+dfn <- data.frame(a, p)
+r <- c(1,2,3,4,5,6,7,8,9,10)
+s <- c(1,2,3,4,5,6,7,8,9,10)
+dfp <- data.frame(r, s)
 
-data_scientist <- contactos %>% 
-  filter(str_detect(Position, "data.scientist")|str_detect(Position, "data.analyst|analytics"))
+# Correlación negativa
+ggplot(dfn, aes(p, a))+ ggtitle("Correlación Negativa")+ 
+  geom_point(size = 3) + geom_smooth(method = "lm", se = F)
 
-
-origen <- data_scientist %>% 
-  distinct(Origen) %>% 
-  rename(label=Origen)
-
-contacto <- data_scientist %>% 
-  distinct(nombre_apellido) %>% 
-  rename(label=nombre_apellido)
-
-nodes <- full_join(origen, contacto, by = "label")
-
-nodes <- nodes %>% rowid_to_column("id")
-
-conexion <- data_scientist %>% 
-  group_by(Origen, nombre_apellido) %>% 
-  summarise(peso = n()) %>% 
-  ungroup()
-
-aristas <- conexion %>% 
-  left_join(nodes, by = c("Origen" = "label")) %>% 
-  rename(from = id)
-
-aristas <- aristas %>% 
-  left_join(nodes, by = c("nombre_apellido" = "label")) %>% 
-  rename(to = id)
+# Correlación positiva
+ggplot(dfp, aes(s, r))+
+  geom_point(size = 3) + geom_smooth(method = "lm", se = F)+
+  ggtitle("Correlación Positiva")
 
 
-aristas <- select(aristas, from, to, peso)
-
-
-edges <- mutate(aristas, width = peso/5 + 1)
-
-nodes$color <- c(rep("#DD6B06", 3), rep("#2CAFBB", 261))
-
-
-referidos <- visNetwork(nodes, aristas) %>% 
-  visIgraphLayout(layout = "layout_with_fr") %>% 
-    visNodes(color = list(background = "#5DBAC3",
-                        border = "#01636D")) %>% 
-  visEdges(color = list(color = "grey", highlight = "#014D54" )) %>% 
-  visOptions(highlightNearest = TRUE)
-
-referidos
-
-```
-
-]
-
-.pull-right[
-
-We can use graph analysis to carry out Organizational Network Analysis.
-
-In this simple example we are analyzing LinkedIn's connections of 3 People Analytics, to find out Data Scientists they have in common for a referral program. `r emo::ji("exploding_head")`
-
-]
-
----
-## Text Mining
-
-You can analyze text in surveys, resumes, opinions in sites like Glassdoor and so on. This is an analysis on a Home Office survey from last year.
-
-pull-left[
-```{r echo=FALSE}
-library(reshape2)
+#### Regresión Lineal Simple ####
 library(googlesheets4)
 library(gargle)
+library(scales)
+
+gs4_deauth()
+options(scipen = 999) # Cambia la notación científica de los gráficos
+
+# Cargar este archivo lleva un tiempito... relax
+encuesta_sysarmy <- sheets_read("1_db6zEAMvr-1GQjJb4hV-rSQfJ9w6GmezbqKJ2JJn7I", skip = 9)
+
+# Preprocesamiento
+analisis <- encuesta_sysarmy %>%
+  select('Trabajo de', `Salario mensual BRUTO (en tu moneda local)`, 'Años de experiencia') %>%
+  rename(Puesto = 'Trabajo de',
+         Sueldo_Bruto = `Salario mensual BRUTO (en tu moneda local)`,
+         Experiencia = 'Años de experiencia') %>%
+  filter(Puesto == "Developer",
+         between(Sueldo_Bruto, 20000, 1000000)) %>%
+  mutate(Experiencia = as.numeric(unlist(Experiencia)))
+
+
+mod_dev <- lm(Sueldo_Bruto ~ Experiencia, data= analisis)
+
+library(broom)
+
+tidy(mod_dev)
+
+# Gráfico de regresión lineal simple
+analisis %>%
+  filter(Puesto == "Developer") %>%
+  ggplot(aes(Experiencia, Sueldo_Bruto))+
+  geom_point(alpha = 0.3, size = 2, color="#0794DB")+
+  geom_smooth(method = "lm")+
+  scale_y_continuous(labels = scales::comma_format(big.mark = ".", decimal.mark = ",")) +
+  labs(title= "Relación entre sueldo bruto y años de experiencia",
+       subtitle = "Developers en Argentina",
+       x="Experiencia",
+       y= "Sueldo Bruto",
+       caption = "Fuente: Encuesta de Sueldos Sysarmy Enero 2020") + 
+  theme_bw()
+
+
+#### Text Mining ####
+
+library(reshape2)
 
 EncuestaHomeOffice <- sheets_read("1g2q3c_MMrBc4MehO4Yjktpu2fk7s7M8Bn2wIgV6yQHo")
 
@@ -378,26 +257,61 @@ escala <- c("#4445f8", "#c7beca", "#da8a10" )
 ze <- scale_fill_manual(values = escala)
 
 
-```
-]
+eho_text_vacio %>%
+  group_by(Cambios_Futuros) %>%
+  count(palabra, sort = TRUE) %>%
+  top_n(10) %>%
+  ggplot(aes(x = reorder_within(palabra, n, Cambios_Futuros), y = n, fill = Cambios_Futuros)) +
+  scale_fill_manual(values = escala)+
+  geom_bar(stat = 'identity', show.legend = FALSE) +
+  scale_x_reordered()+
+  facet_wrap(~Cambios_Futuros, ncol = 2, scales = "free")+
+  labs(x = "", y= "Frecuencia Absoluta")+
+  ggtitle("Top 10 de palabras por Respuesta",
+          subtitle = "Pregunta: ¿Creés que va a cambiar la forma de trabajar?")+
+  coord_flip() +
+  zx
 
----
+###### Análisis de Sentimientos
 
-# Sergio García Mora
+# Lexicon de sentimientos
+sentimientos <- read_tsv("https://raw.githubusercontent.com/7PartidasDigital/AnaText/master/datos/diccionarios/sentimientos_2.txt",
+                         col_types = "cccn",
+                         locale = default_locale())
 
-.left-column[
-<img src="Archivos/eu.jpg" />
-]
+# Modificación de la función get_sentiments de tidyverse
+source("https://raw.githubusercontent.com/7PartidasDigital/R-LINHD-18/master/get_sentiments.R")
 
-.right-column[
-* ### `r emo::ji("geek")` HR Nerd
-* `r emo::ji("biceps")` Lic. en Relaciones del Trabajo con formación en Data Mining
-* `r emo::ji("chart")` SME People Analytics en [Data IQ](https://dataiq.com.ar/)
-* `r emo::ji("teacher")` Profesor de People Analytics en ITBA
-* `r emo::ji("airplane")` Fundador de [Data 4HR](https://data-4hr.com/)
-* `r emo::ji("wine")` Fundador del [Club de R para RRHH](https://r4hr.club)
-* `r emo::ji("king")` Meme Manager en varias comunidades
+## Análisis General
+eho_text_nrc <- eho_text_vacio %>%
+  right_join(get_sentiments("nrc")) %>%
+  filter(!is.na(sentimiento)) %>%
+  count(sentimiento, sort = TRUE)
 
-]
 
----
+feelings <- c("negativo", "positivo", "negativo", "negativo", "negativo", "positivo", "positivo", "positivo")
+
+eho_text_nrc %>%
+  filter(sentimiento != "negativo", sentimiento !="positivo") %>%
+  cbind(feelings) %>%
+  ggplot(aes(reorder(sentimiento, n), n, fill = feelings)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  scale_fill_manual(values = c("#F5B041","#5DADE2"))+
+  zx +
+  coord_flip() +
+  labs(title="Ranking de sentimientos",
+       x = "Sentimiento",
+       y = "Cantidad de Apariciones")
+
+
+
+library(wordcloud2)
+library(webshot)
+webshot::install_phantomjs()
+
+
+eho_text_vacio %>%
+  filter(Cambios_Futuros == "Sí") %>%
+  count(palabra, sort = TRUE) %>%
+  ungroup() %>%
+  wordcloud2( size = 0.6, shape = "triangle-forward",color = rep_len(c("#4445f8", "#7563fa", "#9881fc", "#b59ffe"), nrow(.)))

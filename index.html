@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Coding in R in HR</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <meta name="github-repo" content="chechoid/paw21-coding-in-r-live-to-tell"/>
+    <meta name="twitter:title" content="Coding in R in HR: A Quick Guide to Learning to Code, and Live to Tell the Tale"/>
+    <meta name="twitter:description" content="This is the presentation for Tucana&#39;s People Analytics World 2021 about how to start coding in R and keeping the momemtum going Developed by Sergio Garcia Mora."/>
+    <meta name="twitter:url" content="https://coding-in-r-in-hr.netlify.app/"/>
+    <meta name="twitter:image:src" content="https://github.com/r4hr/kiwi2020/blob/main/kiwi-cover.png?raw=true"/>
+    <meta name="twitter:image:alt" content="Coding in R in HR: A Quick Guide to Learning to Code, and Live to Tell the Tale Tucana&#39;s People Analytics World 2021 Author: Sergio Garcia Mora"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:creator" content="@sergiogarciamor"/>
+    <meta name="twitter:site" content="@data4hr"/>
+    <meta property="og:title" content="Coding in R in HR: A Quick Guide to Learning to Code, and Live to Tell the Tale"/>
+    <meta property="og:description" content="This is the presentation for Tucana&#39;s People Analytics World 2021 about how to start coding in R and keeping the momemtum going Developed by Sergio Garcia Mora."/>
+    <meta property="og:url" content="https://coding-in-r-in-hr.netlify.app/"/>
+    <meta property="og:image" content="https://github.com/r4hr/kiwi2020/blob/main/kiwi-cover.png?raw=true"/>
+    <meta property="og:image:alt" content="Coding in R in HR: A Quick Guide to Learning to Code, and Live to Tell the Tale Tucana&#39;s People Analytics World 2021 Author: Sergio Garcia Mora"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="article:author" content="Sergio Garcia Mora"/>
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <link href="libs/vis/vis.css" rel="stylesheet" />
+    <script src="libs/vis/vis.min.js"></script>
+    <script src="libs/visNetwork-binding/visNetwork.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Coding in R in HR
+## A Quick Guide to Learning to Code and Live to Tell the Tale
+### <svg viewBox="0 0 448 512" style="height:1em;fill:currentColor;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg">
+<path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path>
+</svg>
+<a href="https://www.linkedin.com/in/sergiogarciamora/">Sergio Garcia Mora</a><br><br><svg viewBox="0 0 496 512" style="height:1em;fill:currentColor;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"> <path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 448c-110.3 0-200-89.7-200-200S137.7 56 248 56s200 89.7 200 200-89.7 200-200 200zm117.8-146.4c-10.2-8.5-25.3-7.1-33.8 3.1-20.8 25-51.5 39.4-84 39.4s-63.2-14.3-84-39.4c-8.5-10.2-23.7-11.5-33.8-3.1-10.2 8.5-11.5 23.6-3.1 33.8 30 36 74.1 56.6 120.9 56.6s90.9-20.6 120.9-56.6c8.5-10.2 7.1-25.3-3.1-33.8zM168 240c17.7 0 32-14.3 32-32s-14.3-32-32-32-32 14.3-32 32 14.3 32 32 32zm160-60c-25.7 0-55.9 16.9-59.9 42.1-1.7 11.2 11.5 18.2 19.8 10.8l9.5-8.5c14.8-13.2 46.2-13.2 61 0l9.5 8.5c8.5 7.4 21.6.3 19.8-10.8-3.8-25.2-34-42.1-59.7-42.1z"></path></svg> <a href="https://dataiq.com.ar">Data IQ</a>
+### Tucana
+
+---
+
+
+
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+#What is R?
+
+---
+# What is R
+
+**R** is an open source language, that was firstly known as a statistical analysis language.
+
+--
+
+Nowadays, and thanks to the community of developers you can use R to a lot more of things, expanding its capabilities.
+
+--
+
+You can work with any kind of data, and make any analysis that you imagine.
+
+---
+class: inverse, center, middle
+# What things can you do in R?
+
+---
+## Predictive Analytics
+
+.pull-left[
+🔮 A well know use case, is to perform *predictive analysis", for instance to predict Employee's Attrition.
+
+
+
+]
+.pull-right[
+&lt;img src="index_files/figure-html/pred2-1.png" width="504" /&gt;
+
+
+]
+---
+## Cluster Analysis
+
+.pull-left[
+
+&lt;img src="index_files/figure-html/clus1-1.png" width="504" /&gt;
+]
+
+--
+
+.pull-right[
+&lt;img src="index_files/figure-html/clus2-1.png" width="504" /&gt;
+
+]
+---
+## Organizational Network Analysis
+
+.pull-left[
+<div id="htmlwidget-df4e1f8d8c79c5753d56" style="width:504px;height:504px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-df4e1f8d8c79c5753d56">{"x":{"nodes":{"id":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264],"label":["Javier Calzolari","Pablo Senra","Sergio E. Garcia Mora","Erik van Vulpen","Facundo Iannello","Marina Cañizo","Eduardo Terrón Gómez","Daniela Alonso","Ariel Felsztyna","Micaela M. Kulesz, PhD","Santiago Candia","Carsten Kraus","Yael Epstein","Vanina Petillo","Miranda Chab","María Belén Karamanukian","Macarena Estévez - Socia Deloitte","Daniela Clavel","Gabriela Gisele Pérez","Andrea Cesar","Chiara Usuardi","Carlos Matias Bavoleo","María Florencia Nápoli","Jose Istillarte","Héctor Vega","Maximiliano Eggers","Natalia Gudalewicz","Alejandro Rodriguez I.","Gustavo Bulgach","Alejandro Tejada Borges","Carolina Coronado","Fernando Morente Cadenas de Llano","Noeli Daniela Rossi","Edwin Andres Sorza Gonzalez","Nataly Escobari","Luis Alfonso Gomez Zuñiga","Gerardo Floridia","Nahuel Rodriguez Araujo","David Ruiz","Edgardo Lugo","Kenny Rodriguez Olier","Renzo Enrique Palomino Távara","Fernando Flores","Victor Rumay","Marino Pernía G.","Alan Rosenfeld","Kevin Vargas","Ailén Rojas","Mariano d'Almeida","Hernan Herrera Albelo","Guadalupe Alvarez Mulleady","Damián Barbero","Emanuel Saavedra","Gloria Caterina Ruschner","Eduardo Illiano","Jaime O'Conor","Mathias Longo","Federico Piacente","Cristian Jakubowski","Mauricio Anderson","Mauro García","María Florencia Rossi","Johanna Dragone","Ramiro Savoie","Carolina Ielapi","Gilmar Argote","Agustina Ormart","Alejandro Eloy La Moglie","Rodrigo Pantoja Navajas","Jorge Vidaurre","Javier Gurevich","Christian Cerrella","Ariel Camargo","Diego Martín Vacarezza","Mirian Faig","Marcelo Piattini Velthuis","Federico Vidal","Joan Manuel Perez Meiss","Pablo A. Guzzi","Martin Carames Abente","Matias Juan Leive","Fabrisio Foscarino","Ramiro Fernández","Pablo Avenali","Ezequiel Gutt","Christian Grunblatt","Romina Prez","Roberto Panai","Rolando Gutiérrez Cortés","Ignacio Tomás Bullrich","Blanca Monreal","Agustin Markovic","Daniel Rivera Escobar","Iván Guerrero Meléndez","Jorge Brian Alarcón Flores","Fernando López Gil","Lic. Ana Belen Gonzalez Arguello","Leonardo Ballón","Marcela Huerfano","Ismael Gómez Schmidt","Juan Francisco Muñoz","Ariel Fleiderman","Anita Quevedo","Tomás Marcos","Jorge Maria Ortiz Claverol","Romain Martin","Javier Orraca","Rafael Zambrano","Luciano Borgoglio","Mariana Hariri","Yolanda Barrull","Alejandro Sánchez Rodríguez","Ignacio Lecha Val","Luis Serra Díaz-Cano","Jean (JP) Philius","Alexandru Gotoi","Emmanuel Martín Garnica","Almudena López-Cediel Verdú","Eloy Eligón","Augusto Gentile","Andrés Paredes","Francisco J. Rodríguez","Jayshween Shiron Kumar","Andreas Kyprianou","Daniel Lacunza","Mehul Pandya","Info Data 4HR","M.Angeles Alba García de la Camacha","Gisele Cabrera","Manish Anand","Barbara Anania","Andres Diaz Devia","Dan Moorehead","Valentin Veronesi","Rodrigo León Tovi","Gal Mozes","Hamza MADMOUNE","Luis Andrés Martínez Peraza","Daniela Garay","Desalina (Alina) Guarise, MPA, PHR","Gabriela Bouret","juan jose iguaran fernandez","Pablo Gómez Ase","Federico Abud","Hernán Escudero","Abhinav Meesa","Maria Nolazco Masson","Daniel Garcia Teba","Federico Ezequiel Torres","Olmo Barragan","Federico Ariel Mendez","Eduardo Valencia","Pablo Garriga Suárez","Daiana Emili","Karina Bartolome","Mariano Alonso","Nicolás Morales Galaz","Sergio Raja","Chris Coleman","Chris Wilpert","Martin Juiz","Claudio Mac-Lean","Viviana Valdés","Monica Patricia Pineda Vargas","María Emilia Charnelli","Littal Shemer Haim (ליטל שמר חיים)","Georgina Ricci","Federico Schmidt","Matías Conde","María Jesús Belizón Cebada, Ph.D.","Giovanna Constant","Edgar Leandro Jimenez","Diego Antonio Hernández Ronquillo","José De Souza","Praveen Viswam, GPHR","Paulina Verasay","Keith McNulty","Muge Bakkaloglu, PMP®","Mike West","Ana Rita Almada","Martin Andres Minnoni","An Rycek","Ewuard Avila Silva, Msc.","Jorge Esteban Saldeña","Sofia Rovito","Gaurav Guliani","Pablo Martin Karg","Sofia Fasce","Sebastián Lombraña","Federico Costa","Manuel Villalonga","Dante Maino","Eliana Moccia","NAZARENO MEDRANO","Diego Ignacio Peñaloza","Ricardo Leston","Juan Agustin Vago","Sebastian Sanchez Mazza","Simon White","Walter Alejandro Bernal","Franco Ubber Scapin","German Avanzato","Matias Monja","Juan Agustin Pisano","Nexbas S.A.","Andrew Sosa","Guido Luca Oliveri","Agustin Fusaro","Wayne Lee","Eugenio Molina","Lambolla Mariano","Jack Dunn","Dr. Andrew Doyle","Dr. Lakshmi Keerthi, PhD","Ivanna Grone","Kanwal Safdar","Edgardo Ariel Osorio","Sjoerd van den Heuvel","Romina Medina","Gabriel Ravena","Federico Vazquez Morales","Mariano Ariel Bernardoni","Juan Martín Román","Richard Rosenow","Pablo Daniel Morinigo","Raúl Mascaró","Victor Daniel Casas Hernandez","Ramiro Marchesini Piedra","Clarisa Castelloni","Martin Nash","Damian Ignacio Ramos","Patricia Isabel Romero","Santiago Donikian","Jonathan Nicolás Gimenez","Matias Rivero","Amalia Carolina Guaymás Canavire","Martin Maffioli","Alejandro Salevsky","Florencia Novidelsky","Fernando Croceri","Adrián Martín Urrutia Toledo","Alejandro Tamashiro","Nicolás Martins","Rodrigo Lloret","Rocío Cairo Presepi","Rubén Flecha","Fernando Gonzalez","Pablo Tempone","Romina Elena Almada","Sergio Miller","Gabriela Plantie","Diego Juritz","Eduardo J. Azzola","Justo Raúl Revilla Calle","Federico Rosenhain","Lissett Goncalves","Agustín Demarchi","Guillermo Lissa","Omar Ernesto Cabrera Rosero","Marcos Feole","Gaston Liberman","Daniela Blanco","Leandro Martín Ríos","Lucas Pogorelsky"],"color":["#DD6B06","#DD6B06","#DD6B06","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB","#2CAFBB"],"x":[0.0082018491739555,0.691902350455691,-0.548152170075159,-0.185623874611067,0.333194730238177,0.36773231882261,0.329586593583517,-0.213720070178605,-0.128736936807377,0.359208910209756,-0.318172756044928,0.114620777609944,0.2129221438706,0.205881818262367,-0.312247010852185,-0.0631961585782774,0.194699636229377,0.179726487689059,-0.340424487611275,0.295408361714691,0.256261968043455,-0.164425193650819,-0.176351421262592,0.16112840322174,-0.188588699026484,-0.29374553840281,-0.246223309034752,-0.20392706729575,-0.251894850173484,-0.243043849873549,0.211146269622599,-0.118312953782712,0.291825420867433,0.328519916047752,0.15104488883235,-0.233500415674619,-0.280349503779012,0.316733907535243,0.0714455437466008,0.197343359783621,-0.0693257784184869,0.275816704193471,-0.223327465363923,0.111802446880898,0.244029727340247,0.382049204418524,0.244592412113886,-0.31448635194201,0.11201343225043,0.276257138756036,0.0765062823940685,0.381882121674604,0.321977147758449,-0.265581125772313,-0.159661419375529,-0.0221964212020289,0.310657731606362,0.436467918799803,0.285994969143378,-0.164683191870615,0.258170499240116,0.0502294522012736,0.334405360135784,0.056057279909473,0.255529392950256,0.0265944594109206,0.229538360948194,-0.113879679958948,-0.123996578824953,0.12064687806471,-0.344875998523721,-0.00548060420909302,-0.00377106018947815,-0.285371939064291,0.37168333521097,0.155575957549277,-0.0586300778494631,-0.248821230950503,-0.207728725713213,-0.143699708420876,0.0978263925993941,0.00977362893697364,-0.285086729367984,0.973126048811738,0.969478824354219,0.966070695099412,1,-0.973865830945215,-0.993554637373196,-0.471779280291201,-0.859605677941316,-0.435385242618045,-0.686727757245051,-0.823630776726357,-0.658836063580836,-0.386475763039325,-0.867538929362673,-0.884455938988597,-0.956275504558771,-0.806876966787758,-0.641047593895711,-0.63733091874681,-0.274156413726197,-0.363588203678564,-0.320751066076525,-1,-0.698571641534357,-0.33641696765578,-0.836297921975504,-0.878262529914306,-0.960761769730884,-0.652747619174387,-0.806936693083705,-0.689061737471294,-0.797907710711984,-0.910104020099496,-0.151800031511814,-0.361090115669711,-0.99419071032694,-0.767664319297529,-0.581370332197495,-0.483455142921318,-0.583635282953097,-0.814775258951153,-0.539927810449315,-0.435274262861578,-0.298515375974306,-0.317053100090956,-0.655838142498528,-0.751530193585776,-0.920548962560759,-0.902749936875436,-0.878380213880878,-0.861202132638249,-0.782045883234237,-0.551283068435399,-0.927110260010739,-0.678037925914912,-0.718888464984781,-0.29637889741086,-0.188899702118179,-0.582621828622901,-0.553461605897302,-0.939799420378029,-0.83476790568192,-0.848361208905464,-0.327960811972369,-0.486195577289461,-0.232262426377855,-0.970210750424044,-0.487256514632061,-0.583242804690771,-0.957475178372331,-0.348690768835157,-0.902374479894529,-0.98200772592339,-0.454923242248332,-0.613779211868451,-0.732216853693667,-0.223363431172629,-0.737867867555066,-0.233678117896796,-0.762582722044257,-0.734411826520027,-0.289442601765448,-0.35967529611614,-0.897405663699003,-0.515251059850467,-0.811539079072849,-0.778698764848453,-0.227585894429144,-0.205855549946894,-0.230655047388223,-0.419928315814029,-0.686300928817192,-0.792887474563218,-0.537673452646884,-0.919034693887985,-0.628473565543888,-0.796903780355733,-0.377742697770674,-0.994541421649762,-0.603947791475422,-0.180999017262953,-0.871764283137487,-0.616708000098457,-0.749490097985623,-0.610865044536359,-0.558168987806657,-0.577999738695061,-0.856914467566699,-0.509785103707429,-0.750789632395379,-0.375369445454667,-0.657687756219572,-0.88053456904719,-0.48565920511689,-0.443532567079419,-0.852508131956142,-0.946969511297776,-0.610457930982348,-0.836332719552127,-0.150190501979471,-0.430299547312744,-0.682754975064726,-0.532506540887581,-0.157550231792726,-0.934872409515121,-0.891471755731016,-0.682425182991893,-0.921554359324866,-0.331975457664278,-0.423134801072731,-0.80502923474244,-0.196311615660751,-0.521552268452208,-0.388013060084847,-0.698411849544776,-0.42614587447157,-0.687146538355744,-0.287938100342156,-0.398155993865967,-0.85522354272987,-0.188731449548327,-0.836447318340716,-0.339237779915737,-0.261483711981383,-0.521250872570389,-0.801547117212305,-0.717447219747871,-0.272336300690418,-0.756779047308908,-0.899022590416879,-0.285061059532137,-0.260474018154403,-0.721478313693311,-0.665773733733056,-0.231973662322345,-0.954831736125662,-0.443992159136355,-0.652125891188733,-0.802489181364187,-0.492350811217295,-0.27056043955349,-0.480829437790299,-0.719766825520503,-0.559829007458173,-0.493469704364399,-0.747333858597863,-0.75518737497607,-0.838067306326164,-0.597115529483155,-0.776463684150891,-0.372092915412782,-0.922030600595595,-0.628908400833742,-0.180649753353937,-0.952669767289102,-0.6964862718257,-0.63307365248893,-0.41041885486275,-0.549092451690901,-0.715823198397813,-0.777515283484881],"y":[0.446267982592498,-0.00989128549876461,-0.356993526499175,0.128565173979855,0.779632247011594,0.673858809968896,0.366070340146593,0.164441839385087,0.00155821958029145,0.554231050610973,0.25540840356002,0.813948983767378,0.54420971563627,0.718207808892819,0.205910296985676,0.793266210142303,0.8121790910876,0.631396334392077,0.181410704344781,0.849577983699158,0.900402024281893,-0.0553608021694473,0.0492592363843829,0.871591789846615,0.00106484574697596,0.131245194491222,0.164283430436169,0.0961769723216093,0.0747004690221911,0.0360132280581411,0.893523270672743,0.831072455031178,0.671955604109667,0.449972334197387,0.955511674874619,0.114393404992551,0.192248880033231,0.51552637392339,0.75251693727554,0.956400423413183,0.883857481560076,0.554016041424482,-0.00437045327266006,0.896466304054356,0.816151295310315,0.49412407212016,0.625500718850465,0.151927852669385,0.99448332359095,0.422148701543584,0.942497546426518,0.606410847197596,0.61648628259157,0.122368586807448,0.0871517477125747,0.908539699693811,0.302760938292352,0.23578134153866,0.777500289277182,-0.0185538982780851,0.337861634523463,1,0.715697797061796,0.850483518981406,0.721407642711546,0.921745420047189,0.458386676907043,0.910077364216925,-0.0410214312894396,0.680248585383095,0.239345157764387,0.832192975222856,0.989397003230826,0.243377813670121,0.412721719367484,0.755761961965361,0.966859475293043,0.212282076355284,0.0452537739898935,0.0377751366217269,-0.0592311672449807,0.75607939016459,0.0766343632279343,0.0547585083355502,-0.135173799008079,-0.0608867710991843,-0.01014361817814,-0.573541499575126,-0.207786205790658,-0.931244404602673,0.0889346777676332,-0.980620806176333,-0.699367916395357,-0.483436075538327,0.0743327496055306,-0.673522828011369,-0.818200087753806,0.0314696284892413,-0.160539728063738,-0.635224370809153,0.0100351819966744,0.201286187996765,-0.24846823058193,-0.170816972422936,-0.489489695557386,-0.361350190381846,-0.0958317088418981,-0.247827310989523,-0.766989259938771,-0.113139519451635,-0.384652739229596,-0.991799826283748,-0.0243132812224804,0.198255197810398,-0.336733512134854,-0.656132992018267,-0.577969184432048,-0.561709795266159,-0.522180251853579,0.102790054663105,-0.188077569615723,0.0469593340049259,-0.887751393320022,0.0767739864196557,-0.749365847491406,-0.446337865734342,-0.862180984531653,-0.789778119620803,-0.374542853128163,-0.0549668000040892,-0.0755242691405387,-0.24139859370972,-0.0355529172127264,-0.710416794163673,-0.255058734614966,-0.823414797263034,-0.0153008424683163,-0.949422001826372,0.0612789657952846,-0.320919645739566,-0.611411725850036,-0.703502903772733,0.170533306058352,-0.600824430508958,-0.39006665247559,-0.277567009488533,-0.9148535392287,-0.773420944672567,-0.436944630819087,-0.431782836353675,-0.692283040088952,0.0129484870129235,-0.227409718836614,-0.84573615928255,-0.168584992936802,-0.474499392441493,-0.037562698559308,-0.970202326322143,-0.745335731180107,-0.287726452361414,-0.181210397594991,-0.655271300460385,0.0224571335916652,-0.344842056824436,-0.565305205187817,-0.433013858597474,-0.769675103837454,0.117081986824808,-0.175762214523239,-0.763608682121446,-0.774398621539213,-0.723471785354545,-0.365198801564836,-0.120304671162062,-0.783782568250071,-0.898930306060722,-0.623764634249777,-0.71803641094714,-0.0775130818499313,-0.557546036834425,-0.350048450584821,-0.296279385721697,-0.811351829255448,-0.671533612622304,-0.461177422738955,-0.635290010805902,0.177984051595999,0.104555954050694,0.0843104730185591,-0.994676726394655,-0.200571617798282,-0.533506358465529,-0.660376857109216,-0.899283310241966,-0.171924769706249,-0.327982704354375,-0.849557644780019,-0.641048407205517,-0.550342783967976,-0.283418312949452,-0.523546388694288,-0.0884886184892125,-0.495064605782678,-0.901632099773122,-0.624632893831642,-1,-0.408585047701423,-0.336222957324323,-0.585822330479638,-0.886207043436985,-0.471558301190537,-0.71760314776886,-0.736302945706013,-0.825424634051717,-0.528065344030441,-0.8904618708179,-0.957147493121831,-0.256178289959126,-0.554207667976971,-0.53417827841555,-0.39958346323287,-0.83198119943956,-0.645872128155536,-0.454336096913717,-0.864200875023674,-0.638001691473932,-0.494187330749149,-0.00828184949913335,-0.703578515314933,0.130855537184705,-0.763481074004057,-0.83091411829367,-0.398385362038246,-0.635363597381096,-0.8317042725397,-0.856747202962649,0.141515632519341,-0.574479521360684,-0.662007777367173,-0.818703618752797,-0.837183066923048,0.141603646975309,-0.982172670016704,-0.701666711028764,-0.224549740989955,-0.954287795353389,-0.0797771287663787,-0.119322111536777,-0.570850570970511,-0.923415908542943,0.017043389735613,0.184363141354524,-0.114728234313654,-0.770544799359861,-0.531165453187656,-0.907003317939566,-0.344589284092262,-0.105077905135564,-0.00818235649383503,-0.742168871797902,-0.256094893641249,-0.935543673230418,-0.452127105272159,-0.443369673273696]},"edges":{"from":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],"to":[67,48,46,68,28,30,20,73,9,22,31,65,12,21,72,59,52,8,18,39,74,40,55,7,34,53,4,82,5,58,77,43,32,19,37,66,54,51,29,25,50,56,71,78,63,70,24,41,47,36,17,76,16,23,62,49,6,45,80,57,81,60,61,26,10,15,75,38,27,35,33,79,83,64,42,69,11,3,14,44,13,86,85,58,81,84,87,146,241,257,208,92,48,28,238,112,242,30,116,118,236,182,180,124,132,121,206,103,9,102,120,131,91,22,159,160,229,162,154,231,133,148,125,93,8,262,139,192,140,173,195,252,74,213,214,172,217,55,253,152,193,119,117,4,210,183,144,151,190,149,255,168,221,240,43,247,96,239,122,201,220,141,19,251,136,261,186,167,37,202,171,129,54,207,258,29,137,25,145,113,90,127,100,94,215,212,1,71,107,123,115,78,234,95,184,105,174,204,197,101,142,223,254,216,155,177,211,263,98,97,256,166,264,109,36,138,114,128,130,191,99,260,165,23,170,147,110,156,222,181,80,161,237,230,169,81,203,235,60,26,126,179,15,164,178,27,194,205,243,157,150,259,79,225,153,143,187,248,232,176,175,108,83,228,226,196,224,88,245,135,244,69,89,106,249,219,246,11,233,189,198,250,158,199,218,188,185,104,134,227,163,200,209,111],"peso":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false,"color":{"background":"#5DBAC3","border":"#01636D"}},"manipulation":{"enabled":false},"edges":{"smooth":false,"color":{"color":"grey","highlight":"#014D54"}},"physics":{"stabilization":false}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","igraphlayout":{"type":"square"},"highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"}},"evals":[],"jsHooks":[]}</script>
+
+]
+
+.pull-right[
+
+We can use graph analysis to carry out Organizational Network Analysis.
+
+In this simple example we are analyzing LinkedIn's connections of 3 People Analytics, to find out Data Scientists they have in common for a referral program. 🤯`
+
+]
+---
+
+# Sergio García Mora
+
+.left-column[
+&lt;img src="Archivos/eu.jpg" /&gt;
+]
+
+.right-column[
+* ### 🤓 HR Nerd
+* 💪 Lic. en Relaciones del Trabajo con formación en Data Mining
+* 💹 SME People Analytics en [Data IQ](https://dataiq.com.ar/)
+* 👩‍🏫 Profesor de People Analytics en ITBA
+* ✈️ Fundador de [Data 4HR](https://data-4hr.com/)
+* 🍷 Fundador del [Club de R para RRHH](https://r4hr.club)
+* 👑 Meme Manager en varias comunidades
+
+]
+
+---
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "191:100",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
