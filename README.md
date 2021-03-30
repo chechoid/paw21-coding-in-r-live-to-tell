@@ -5,5 +5,5 @@ This is the repository for the presentation "Coding in R in HR: A Quick Guide to
 If you want to get in touch with me, these are my social media links:
 * :bowtie: [LinkedIn](https://www.linkedin.com/in/sergiogarciamora/)
 * :bird: [Twitter](https://twitter.com/sergiogarciamor)
-* ✈️ [TElegram](https://t.me/SergioGarciaMora)
+* ✈️ [Telegram](https://t.me/SergioGarciaMora)
 * 📫 My e-mail is [sergio@d4hr.com](mailto:sergio@d4hr.com)
