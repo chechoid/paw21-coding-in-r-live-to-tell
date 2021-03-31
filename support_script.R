@@ -601,3 +601,42 @@ p
 # save plot
 ggsave(filename = "guy_checking_out_a_girl_meme/plot.png", plot = p, width = 16, height = 9)
 
+
+# Silly plots ----------
+library(ggbernie)
+
+d1 <- rh %>% 
+  filter(between(sueldo_bruto,
+                 20000,
+                 200000),
+         puesto %in% c("Analista", "HRBP", "Jefe", "Gerente")) %>% 
+  mutate(puesto = factor(puesto, levels = c("Analista", "HRBP", "Jefe", "Gerente"))) %>% 
+  group_by(role = puesto) %>% 
+  summarise(mean_salary = mean(sueldo_bruto))
+
+ggplot(d1) +
+  geom_bernie(aes(x = role, y = mean_salary), bernie = "sitting") +
+  labs(title = "Introducing: ggbernie by R-CoderDotCom",
+       caption = "GitHub: https://github.com/R-CoderDotCom/ggbernie")
+
+library(metallicaRt)              
+
+fuel <- metalli_palette("fuel")
+
+p1 <- ggplot(d1, aes(x = role, y = mean_salary, fill = role)) +
+  geom_col() +
+  theme_minimal()
+p1
+
+p1 +
+  scale_fill_manual(values = fuel) +
+  labs(title = "Introducing: metallicaRt package by John MacKintosh",
+       caption = "GitHub: https://github.com/johnmackintosh/metallicaRt")
+
+library(gameofthrones)
+
+p1 +
+  scale_fill_got(discrete = T, option = "Stark2") +
+  labs(title = "Introducing: gameofthrones package by Alejandro Jiménez",
+       caption = "GitHub: https://github.com/aljrico/gameofthrones")
+  

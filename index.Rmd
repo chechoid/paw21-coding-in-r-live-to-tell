@@ -1,6 +1,6 @@
 ---
 title: "Coding in R in HR"
-subtitle: "A Quick Guide to Learning to Code and Live to Tell the Tale"
+subtitle: "A Quick Guide to Learning to Code <br> and Live to Tell the Tale"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -23,7 +23,7 @@ knitr::opts_chunk$set(fig.retina = 3, warning = FALSE, message = FALSE)
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
 style_duo_accent(
-  primary_color = "#03162C",
+  primary_color = "#c3e89b",
   secondary_color = "#0256B6",
   inverse_header_color = "#FFFFFF",
   header_font_google = google_font("Nunito", "400"),
@@ -66,7 +66,7 @@ class: inverse, center, middle
 ---
 # What is R?
 
-**R** is an open source language, that was firstly known as a statistical analysis language.
+**R** is an open source language, that was firstly known as a statistical analysis programming language.
 
 --
 
@@ -74,7 +74,7 @@ Nowadays, and thanks to the community of developers you can use R to a lot more 
 
 --
 
-You can work with any kind of data, and make any analysis that you imagine.
+You can work with any kind of data, and make any analysis that you ca02n imagine.
 
 ---
 class: inverse, center, middle
@@ -84,7 +84,7 @@ class: inverse, center, middle
 ## Predictive Analytics
 
 .pull-left[
-`r emo::ji("crystal")` A well know use case, is to perform *predictive analysis", for instance to predict Employee's Attrition.
+`r emo::ji("crystal")` A well know use case, is to perform *predictive analysis*, for instance to predict Employee's Attrition.
 
 ```{r pred1, echo=FALSE}
 library(tidyverse) # Limpiar y manipular datos
@@ -195,7 +195,7 @@ ggplot(datos_rh, aes(x = last_evaluation, y = satisfaction_level, color = factor
        subtitle = "0 = Current Employee, 1 = Left",
        x= "Performance",
        y= "Satisfaction",
-       color = "Employee \n de Status")
+       color = "Employee \n Status")
 ```
 ]
 
@@ -451,6 +451,26 @@ library(ggthemes)
 library(lubridate)
 library(scales)
 
+# Plot 1
+hr_data <- read_delim("data/HRDataset_v13.csv", delim = ";")
+
+perf_by_source <- hr_data %>% 
+  select(RecruitmentSource, PerfScoreID) %>% 
+  group_by(RecruitmentSource) %>% 
+  summarise(performance_promedio = mean(PerfScoreID)) %>% 
+  arrange(-performance_promedio)
+
+ggplot(perf_by_source, aes(x=performance_promedio, 
+                           y = reorder(RecruitmentSource, performance_promedio))) +
+  geom_point(color = ft_cols$yellow, size = 2) +
+  labs(title="Average Performance by Recruitment Source", # Divide el titulo en dos renglones
+       y="",
+       x="Average Performance Rating")+
+  theme_ft_rc()+
+  theme(plot.title = element_text(hjust = 1))
+
+# Plot 2
+
 expectativas_laborales <- gs4_get("1HeFbgf0aubb5HBSFJTRzGCpW536O1cji7I6lgiNqvqg") %>%
   read_sheet()
 
@@ -496,7 +516,7 @@ ggplot(exp_empresaria, aes(x = Trimestre, y = Valor,  color = Expectativa)) +
   geom_vline(aes(xintercept = 2015.4), linetype = 2, alpha = 0.3)+
   geom_vline(aes(xintercept = 2019.4), linetype = 2, alpha = 0.3)
 
-# Plot 2
+# Plot 3
 
 
 rh <- read_delim("data/rh_ar.csv", delim = ";")
@@ -543,22 +563,7 @@ rh %>%
 
 # Plot 3
 
-hr_data <- read_delim("data/HRDataset_v13.csv", delim = ";")
 
-perf_by_source <- hr_data %>% 
-  select(RecruitmentSource, PerfScoreID) %>% 
-  group_by(RecruitmentSource) %>% 
-  summarise(performance_promedio = mean(PerfScoreID)) %>% 
-  arrange(-performance_promedio)
-
-ggplot(perf_by_source, aes(x=performance_promedio, 
-                           y = reorder(RecruitmentSource, performance_promedio))) +
-  geom_point(color = ft_cols$yellow, size = 2) +
-  labs(title="Average Performance by Recruitment Source", # Divide el titulo en dos renglones
-       y="",
-       x="Average Performance Rating")+
-  theme_ft_rc()+
-  theme(plot.title = element_text(hjust = 1))
 
 ```
 
@@ -691,7 +696,7 @@ plot_grid(p1, p2, nrow=1, rel_widths = c(0.8, .2))
 ]
 ---
 class: inverse, center, middle
-## Literally,
+# Literally,
 
 --
 
@@ -701,15 +706,13 @@ class: inverse, center, middle
 ### just
 --
 
-### any kind
---
-
-### of plot
+### any kind of plot
 
 ---
 ## Seriously... any kind of plot
 
-.pull-left[
+Credits: Ashten Anthony: [Guy checking out a girl meme](https://github.com/ashten28/my_ggplots/tree/master/guy_checking_out_a_girl_meme)
+
 
 ```{r meme, echo=FALSE}
 # load libraries
@@ -799,13 +802,53 @@ p
 
 ```
 
+
+
+---
+background-color: #f2f5f7
+
+.pull-left[
+<img src="https://www.yucatanalamano.com/wp-content/uploads/2021/03/D0XyhF-WoAIW8vj.jpg" />
 ]
 
 .pull-right[
-Credits: Ashten Anthony: [Guy checking out a girl meme](https://github.com/ashten28/my_ggplots/tree/master/guy_checking_out_a_girl_meme)
-
+# Coding in R in HR: <br> A Quick Guide To Learning To Code and Live to Tell the Tale
 ]
+
+
 ---
+## The profile of a Data Scientist
+
+.center[
+<img src="https://i.ytimg.com/vi/r2I3IDKwyMw/maxresdefault.jpg" width="80%"/>
+]
+
+---
+## Coding can be tough
+
+.pull-left[
+Learning to code is like starting to practice a new sport when you're 40 and it's been ages since you had your last physical activity.
+
+
+So know that is going to be painful, messy, ugly, and frustrating.
+
+But it can be fun as well.
+
+And when your first code runs you'd feel like:
+]
+
+.pull-right[
+<img src="https://movie-fanatic-res.cloudinary.com/iu/s--jWnmUCCb--/t_full/cs_srgb,f_auto,fl_strip_profile.lossy,q_auto:420/v1364991045/run-fatboy-run.jpg" />
+]
+
+---
+background-color: #696969
+class: center, middle
+
+<img src="https://media.giphy.com/media/fSSGX7IHcqlDYwVYsH/giphy.gif" width="90%"/>
+
+---
+
 
 # Sergio García Mora
 
@@ -815,13 +858,197 @@ Credits: Ashten Anthony: [Guy checking out a girl meme](https://github.com/ashte
 
 .right-column[
 * ### `r emo::ji("geek")` HR Nerd
-* `r emo::ji("biceps")` Lic. en Relaciones del Trabajo con formación en Data Mining
-* `r emo::ji("chart")` SME People Analytics en [Data IQ](https://dataiq.com.ar/)
-* `r emo::ji("teacher")` Profesor de People Analytics en ITBA
-* `r emo::ji("airplane")` Fundador de [Data 4HR](https://data-4hr.com/)
-* `r emo::ji("wine")` Fundador del [Club de R para RRHH](https://r4hr.club)
-* `r emo::ji("king")` Meme Manager en varias comunidades
+* `r emo::ji("biceps")` Bachelor Degreee in Labour Relations and training in Data Mining
+* `r emo::ji("chart")` SME People Analytics at [Data IQ](https://dataiq.com.ar/)
+* `r emo::ji("teacher")` People Analytics Teacher at ITBA
+* `r emo::ji("airplane")` Founder of [Data 4HR](https://data-4hr.com/)
+* `r emo::ji("wine")` Founder of [Club de R para RRHH](https://r4hr.club)
+* `r emo::ji("king")` Meme Manager in several communities
+
+]
+---
+## The advantage of starting from scratch
+
+.pull-left[
+.right[
+<img src="https://m.media-amazon.com/images/I/41PZRSHF-NL.jpg" />
+]
+]
+
+.pull-right[
+Peter Thiel, with his analogy of going *from zero to one*, he points out that you're creating something new and disruptive, that solves a problem that no one had thought of before.
+
+Even though we're not reinventing the wheel by using R in our organizations, when you create your first analysis, your first report, or just making a simple presentation using R, **something can change** in your organization.
+
+The main advantage of starting something from scratch is that you have a lot of room to improve, and every minor change you make, will have a huge impact.
+]
+
+---
+# R is so much more than Statistics
+
+R was conceived as a statistical analysis language... but it's much more than that. R has so many packages and expanded its capabilities so much that it can make our daily work far more easy.
+
+--
+In R you can:
+
+* Make presentations, like this one with `xaringan` package `r emo::ji("+1")`
+
+--
+* Collect data from multiple sources `r emo::ji("juggle")`
+
+--
+* `r emo::ji("chart")` Make dashboards with `flexdashboard` package
+
+--
+* Automate reports with `R Markdown` `r emo::ji("cool")`
+
+--
+* `r emo::ji("rockstar")` Share your work, and reproduce it. 
+
+--
+* Write books `r emo::ji("book")`, create blogs `r emo::ji("bubble")`... and more
+
+---
+# 4 Tips for learning to code
+
+There's no secret recipe to learning to code, it takes time, practice, patience, and persistance. Nevertheless, these tips can be helpful:
+
+--
+* `r emo::ji("clown") `Have fun with projects.
+
+--
+* `r emo::ji("lifter") `Find support in R communities.
+
+--
+* `r emo::ji("dog")` Be gentle with yourself.
+
+--
+* `r emo::ji("calendar")` Set deadlines.
+
+---
+
+.left-column[
+
+### **Have fun with projects**
+
+### Find support in R communities
+
+### Be gentle with yourself
+
+### Set deadlines
+
+]
+
+.right-column[
+[Ryan Timpe](https://www.linkedin.com/in/ryantimpe/) in [his presentation](https://www.rstudio.com/resources/rstudioconf-2020/learning-r-with-humorous-side-projects/) at the `RStudio::conf` shows us different... strategies for learning to code and having fun at the same time.
+
+Besides, there are tons of packages and datasets to play with, that are encouraging, allowing you to learn some data science, without feeling like you are doing something extremely hard.
+]
+
+---
+### Some examples
+
+.pull-left[Let's use a survey of HR salaries in Argentina:
+
+```{r sg1, fig.show='hold'}
+library(tidyverse)
+
+# Load data
+rh <- read_delim("data/rh_ar.csv", delim = ";")
+
+# Let's clean the data and calculate the salary mean for some roles
+d1 <- rh %>% 
+  filter(between(sueldo_bruto,
+                 20000,
+                 200000), # Filtering salaries
+         puesto %in% c("Analista", "HRBP", "Jefe", "Gerente")) %>% # Filtering Roles
+  mutate(puesto = factor(puesto, 
+                         levels = c("Analista", "HRBP", "Jefe", "Gerente"))) %>% # Ordering roles
+  group_by(role = puesto) %>% 
+  summarise(mean_salary = mean(sueldo_bruto)) 
+
+# Just a regular plot
+p1 <- ggplot(d1, aes(x = role, y = mean_salary, fill = role)) +
+  geom_col() +
+  theme_minimal()
+
+p1 + ggtitle("Mean Salary by role")
+```
+
+]
+
+.pull-right[
+```{r ref.label="sg1", echo=FALSE}
+
+```
 
 ]
 
 ---
+## Let's play with some color palettes 
+
+.pull-left[
+```{r sg2, fig.show='hide'}
+library(metallicaRt) # Load library              
+
+fuel <- metalli_palette("fuel") #<< # Choose a color palette
+
+# Plot
+p1 +
+  scale_fill_manual(values = fuel) + #<<
+  labs(title = "Introducing: metallicaRt package by John MacKintosh",
+       caption = "GitHub: https://github.com/johnmackintosh/metallicaRt")
+
+```
+
+]
+
+.pull-right[
+```{r ref.label="sg2", echo=FALSE}
+
+```
+]
+
+---
+## Let's play with some color palettes 
+
+.pull-left[
+```{r sg3, fig.show='hide'}
+library(gameofthrones) # Load library
+
+# Plot
+p1 +
+  scale_fill_got(discrete = T, option = "Stark2") + #<<
+  labs(title = "Introducing: gameofthrones package by Alejandro Jiménez",
+       caption = "GitHub: https://github.com/aljrico/gameofthrones")
+```
+]
+
+.pull-right[
+```{r ref.label="sg3", echo=FALSE}
+
+```
+
+]
+
+---
+## Let's make it more fun
+
+.pull-left[
+```{r ref.label="bernie", echo=FALSE}
+
+```
+
+]
+
+```{r bernie, fig.show='hide'}
+library(ggbernie) # Load library
+
+# Plot
+ggplot(d1) +
+  geom_bernie(aes(x = role, y = mean_salary), 
+              bernie = "sitting") + #<<
+  labs(title = "Introducing: ggbernie by R-CoderDotCom",
+       caption = "GitHub: https://github.com/R-CoderDotCom/ggbernie")
+```
+
