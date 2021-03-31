@@ -1,8 +1,6 @@
 ---
 title: "Coding in R in HR"
 subtitle: "A Quick Guide to Learning to Code and Live to Tell the Tale"
-institute: "Tucana"
-author: '`r icons::fontawesome("linkedin")` [Sergio Garcia Mora](https://www.linkedin.com/in/sergiogarciamora/)<br><br>`r icons::fontawesome("smile-wink")` [Data IQ](https://dataiq.com.ar)'
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -13,6 +11,9 @@ output:
       highlightLines: true
       countIncrementalSlides: false
 ---
+class: inverse, top, center
+background-image: url(Archivos/portada.png)
+background-size: cover
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
@@ -63,7 +64,7 @@ class: inverse, center, middle
 #What is R?
 
 ---
-# What is R
+# What is R?
 
 **R** is an open source language, that was firstly known as a statistical analysis language.
 
@@ -441,7 +442,130 @@ You can check this example by [Edward Parker](https://www.lshtm.ac.uk/aboutus/pe
 ---
 ## Plots
 
-You can do any kind of plot in R. Check this github repo by [Ariadna Angulo Brunet](https://github.com/AnguloB/datosdemiercoles).
+You can do any kind of plot in R.
+
+```{r plot1, echo=FALSE, fig.show='hold', out.width="33%"}
+library(hrbrthemes) # Agrega estilos predefinidos y paletas de colores
+library(ggeconodist)
+library(ggthemes)
+library(lubridate)
+library(scales)
+
+expectativas_laborales <- gs4_get("1HeFbgf0aubb5HBSFJTRzGCpW536O1cji7I6lgiNqvqg") %>%
+  read_sheet()
+
+exp_lab <- expectativas_laborales%>%
+  rename(Expectativa = Período) %>%
+  pivot_longer(-Expectativa, names_to = "Periodo", values_to = "Valor") %>%
+  mutate(Periodo = dmy(Periodo),
+         Trimestre = quarter(Periodo, with_year = TRUE, fiscal_start = 1),
+         Expectativa = factor(Expectativa, levels = c("La dotación aumentará",
+                                                      "La dotación disminuirá",
+                                                      "La dotación se mantendrá"),
+                              labels = c("Aumentará", "Disminuirá", "Sin Cambios"))) %>%
+  filter(Trimestre > 2013.04) %>%
+  group_by(Trimestre) %>%
+  summarise(Exp_Aumento = mean(Valor[Expectativa== "Aumentará"]),
+            Exp_Disminuye = mean(Valor[Expectativa== "Disminuirá"]),
+            Exp_Igual = mean(Valor[Expectativa == "Sin Cambios"]))
+
+exp_empresaria <- exp_lab %>%
+  pivot_longer(-Trimestre, names_to = "Expectativa", values_to = "Valor") %>%
+  mutate(Expectativa = factor(Expectativa, levels = c("Exp_Aumento",
+                                                      "Exp_Disminuye",
+                                                      "Exp_Igual"),
+                              labels = c("Aumentará", "Disminuirá", "Sin Cambios"))) %>% 
+  filter(Expectativa != "Sin Cambios")
+
+
+ggplot(exp_empresaria, aes(x = Trimestre, y = Valor,  color = Expectativa)) +
+  geom_line(size = 1)+
+  scale_color_manual(values = c("#2980B9", "#E67E22", "#BDC3C7"))+
+  geom_point()+
+  geom_smooth() +
+  labs(title = "Promedio de Expectativas Empresarias y Puestos Vacantes por trimestre",
+       subtitle = "Fuente: Encuesta de Índicadores Laborales",
+       caption = "#30diasdegraficos #RStats_ES",
+       x = "Trimestre", y = "Valor (porcentaje)") +
+  theme(panel.grid = element_blank(),
+        panel.grid.major.y = element_line(color = "#D7DBDD"),
+        panel.grid.minor.y = element_line(color = "#D7DBDD"),
+        panel.background = element_blank(),
+        text = element_text(family = "Lucida Sans Typewriter")) +
+  scale_y_continuous(limits = c(0,15))+
+  geom_vline(aes(xintercept = 2015.4), linetype = 2, alpha = 0.3)+
+  geom_vline(aes(xintercept = 2019.4), linetype = 2, alpha = 0.3)
+
+# Plot 2
+
+
+rh <- read_delim("data/rh_ar.csv", delim = ";")
+
+
+# Preparación 
+
+
+
+estilov <- theme(panel.grid = element_blank(),
+                 plot.background = element_rect(fill = "#FBFCFC"),
+                 panel.background = element_rect(fill = "#FBFCFC"),
+                 panel.grid.major.x = element_line(color = "#AEB6BF"),
+                 text = element_text(family = "Ubuntu"))
+
+
+
+# Compensación vs. Desempeño -
+
+rh <- rh %>% 
+  filter(puesto %in% c("Analista", "HRBP", "Responsable",
+                       "Jefe", "Gerente")) %>% 
+  mutate(performance = as.integer(runif(490, min = 1, max = 4)),
+         performance = factor(performance,
+                              levels = c(1,2,3),
+                              labels = c("Low", "Regular", "Top")),
+         puesto = factor(puesto, 
+                         levels = c("Analista", "HRBP", "Responsable",
+                                    "Jefe", "Gerente")))
+
+
+rh %>% 
+  ggplot(aes(x = puesto, y = sueldo_ft)) +
+  geom_econodist(width = 0.5) +
+  geom_point(aes(y = sueldo_bruto, color = performance), size = 2, alpha = 0.3,
+             position = position_jitter(width = 0.2)) +
+  scale_color_colorblind() +
+  scale_y_continuous(labels = comma_format(big.mark = ".", decimal.mark = ";")) +
+  coord_flip() +
+  labs(title = "Salary Distribution and Performance",
+       x = "", y = "", color = "Performance",
+       caption = "Performance Rating randomly generated") +
+  estilov
+
+# Plot 3
+
+hr_data <- read_delim("data/HRDataset_v13.csv", delim = ";")
+
+perf_by_source <- hr_data %>% 
+  select(RecruitmentSource, PerfScoreID) %>% 
+  group_by(RecruitmentSource) %>% 
+  summarise(performance_promedio = mean(PerfScoreID)) %>% 
+  arrange(-performance_promedio)
+
+ggplot(perf_by_source, aes(x=performance_promedio, 
+                           y = reorder(RecruitmentSource, performance_promedio))) +
+  geom_point(color = ft_cols$yellow, size = 2) +
+  labs(title="Average Performance by Recruitment Source", # Divide el titulo en dos renglones
+       y="",
+       x="Average Performance Rating")+
+  theme_ft_rc()+
+  theme(plot.title = element_text(hjust = 1))
+
+```
+
+---
+## Plots
+
+You can do any kind of plot in R. Check this github repo by [Ariadna Angulo Brunet](https://github.com/AnguloB/datosdemiercoles) and see her work on the `#30DiasDeGráficos` challenge.
 .center[
 
 ```{r plot2, echo=FALSE, out.width="40%"}
@@ -563,6 +687,122 @@ library(cowplot)
 plot_grid(p1, p2, nrow=1, rel_widths = c(0.8, .2))
   ggsave("05_arco.png", height = 5.89, width=8.58)
 ```
+
+]
+---
+class: inverse, center, middle
+## Literally,
+
+--
+
+### You can do
+--
+
+### just
+--
+
+### any kind
+--
+
+### of plot
+
+---
+## Seriously... any kind of plot
+
+.pull-left[
+
+```{r meme, echo=FALSE}
+# load libraries
+library(readr)
+library(dplyr)
+library(forcats)
+library(ggplot2)
+library(patchwork)
+
+# read in data - manually created
+data <-
+  read_csv("https://raw.githubusercontent.com/ashten28/my_ggplots/master/guy_checking_out_a_girl_meme/data.csv") %>% 
+  mutate(
+    paint = fct_relevel(paint, c("black", "brown", "beige", "white", "black_2", "grey_2",  "red", "blue_2", "beige_3", "blue", "beige_2", "grey"))
+    
+  )
+
+# start ggplot
+p1 <- 
+  ggplot(data) +
+  # using geom_bar, so didnt cheat (though using geom_tile was much easier)
+  geom_bar(
+    mapping = aes(x = x, fill = paint),
+    width = 1
+  ) +
+  # set colours for bars
+  scale_fill_manual(
+    values = c("#24211a", "#593326","#e4a095", "#ffffff", "#24211a", "#93a9b6", "#fa0107", "#0b59b3", "#e4a095", "#0b59b3", "#e4a095","#93a9b6")
+  ) +
+  # make grid squares
+  coord_equal() +
+  # coord_polar() +
+  # add themes
+  theme_bw() +
+  theme(
+    legend.position = "none",
+    axis.title = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text  = element_blank(),
+    panel.grid = element_blank()
+  )
+
+# customized legend - create data to be plotted to look like a legend (not recommended)
+legend_data <-
+  data.frame(
+    x = 0,
+    y = c(4, 6, 8, 10, 12),
+    label = c("Making ggplot\nwhen Hadley\nasks", "", "Me", "", "Doing useful\ndata analysis")
+  )
+
+# start ggplot for custom legend
+p2 <- 
+  ggplot(
+    data = legend_data,
+    mapping = aes(x = x, y = y)
+  ) +
+  # using geom_tile to create filled boxes
+  geom_tile(
+    mapping = aes( fill = label),
+    width = 0.4, height = 0.4,
+  ) + 
+  # using geom_text to place text beside tiles
+  geom_text(
+    mapping = aes(label = label),
+    size = 6,
+    nudge_x = 0.4,
+    nudge_y = 0,
+    hjust = 0,
+    vjust = 0.5
+  ) + 
+  scale_fill_manual(
+    values = c("#ffffff", "#93a9b6", "#fa0107", "#0b59b3")
+  ) +
+  # setting scales to look better/ coord_fixed to make plot narrower
+  scale_x_continuous(limits = c(-0.5,3)) +
+  scale_y_continuous(limits = c(1, 15)) +
+  coord_fixed(ratio = 0.8) +
+  # add themes
+  theme_void() +
+  theme(
+    legend.position = "none"
+  )
+
+# using patchwork to combine main plot and custom legend
+p <- p1 + p2
+p
+
+```
+
+]
+
+.pull-right[
+Credits: Ashten Anthony: [Guy checking out a girl meme](https://github.com/ashten28/my_ggplots/tree/master/guy_checking_out_a_girl_meme)
 
 ]
 ---

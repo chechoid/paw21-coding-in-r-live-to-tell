@@ -326,15 +326,14 @@ library(extrafont)      # Permite utilizar otras fuentes en los gráficos y sali
 library(scales)
 
 
-# Datos de ejemplo ------------
+# Datos de ejemplo 
 
 rh <- read_delim("data/rh_ar.csv", delim = ";")
 
 
-# Preparación ------------
+# Preparación 
 
 
-loadfonts(quiet = T)
 
 estilov <- theme(panel.grid = element_blank(),
                  plot.background = element_rect(fill = "#FBFCFC"),
@@ -371,7 +370,25 @@ rh %>%
        caption = "Datos de desempeño generados aleatoriamente") +
   estilov
 
+# Plot 3
+library(hrbrthemes)
 
+hr_data <- read_delim("data/HRDataset_v13.csv", delim = ";")
+
+perf_by_source <- hr_data %>% 
+  select(RecruitmentSource, PerfScoreID) %>% 
+  group_by(RecruitmentSource) %>% 
+  summarise(performance_promedio = mean(PerfScoreID)) %>% 
+  arrange(-performance_promedio)
+
+ggplot(perf_by_source, aes(x=performance_promedio, 
+                           y = reorder(RecruitmentSource, performance_promedio))) +
+  geom_point(color = ft_cols$yellow, size = 2) +
+  labs(title="Desempeño promedio por fuente de reclutamiento", # Divide el titulo en dos renglones
+       y="",
+       x="Desempeño Promedio")+
+  theme_ft_rc()+
+  theme(plot.title = element_text(hjust = 2))
 
 
 # Ariadna Angulo Brunet ----------------
@@ -495,4 +512,92 @@ library(cowplot)
 
 plot_grid(p1, p2, nrow=1, rel_widths = c(0.8, .2))
 
-ggsave("05_arco.png", height = 5.89, width=8.58)
+# Meme ------------
+# load libraries
+library(readr)
+library(dplyr)
+library(forcats)
+library(ggplot2)
+library(patchwork)
+
+# read in data - manually created
+data <-
+  read_csv("https://raw.githubusercontent.com/ashten28/my_ggplots/master/guy_checking_out_a_girl_meme/data.csv") %>% 
+  mutate(
+    paint = fct_relevel(paint, c("black", "brown", "beige", "white", "black_2", "grey_2",  "red", "blue_2", "beige_3", "blue", "beige_2", "grey"))
+    
+  )
+
+# start ggplot
+p1 <- 
+  ggplot(data) +
+  # using geom_bar, so didnt cheat (though using geom_tile was much easier)
+  geom_bar(
+    mapping = aes(x = x, fill = paint),
+    width = 1
+  ) +
+  # set colours for bars
+  scale_fill_manual(
+    values = c("#24211a", "#593326","#e4a095", "#ffffff", "#24211a", "#93a9b6", "#fa0107", "#0b59b3", "#e4a095", "#0b59b3", "#e4a095","#93a9b6")
+  ) +
+  # make grid squares
+  coord_equal() +
+  # coord_polar() +
+  # add themes
+  theme_bw() +
+  theme(
+    legend.position = "none",
+    axis.title = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text  = element_blank(),
+    panel.grid = element_blank()
+  )
+
+# customized legend - create data to be plotted to look like a legend (not recommended)
+legend_data <-
+  data.frame(
+    x = 0,
+    y = c(4, 6, 8, 10, 12),
+    label = c("Making ggplot\nwhen Hadley\nasks", "", "Me", "", "Doing useful\ndata analysis")
+  )
+
+# start ggplot for custom legend
+p2 <- 
+  ggplot(
+    data = legend_data,
+    mapping = aes(x = x, y = y)
+  ) +
+  # using geom_tile to create filled boxes
+  geom_tile(
+    mapping = aes( fill = label),
+    width = 0.4, height = 0.4,
+  ) + 
+  # using geom_text to place text beside tiles
+  geom_text(
+    mapping = aes(label = label),
+    size = 6,
+    nudge_x = 0.4,
+    nudge_y = 0,
+    hjust = 0,
+    vjust = 0.5
+  ) + 
+  scale_fill_manual(
+    values = c("#ffffff", "#93a9b6", "#fa0107", "#0b59b3")
+  ) +
+  # setting scales to look better/ coord_fixed to make plot narrower
+  scale_x_continuous(limits = c(-0.5,3)) +
+  scale_y_continuous(limits = c(1, 15)) +
+  coord_fixed(ratio = 0.8) +
+  # add themes
+  theme_void() +
+  theme(
+    legend.position = "none"
+  )
+
+# using patchwork to combine main plot and custom legend
+p <- p1 + p2
+p
+
+# save plot
+ggsave(filename = "guy_checking_out_a_girl_meme/plot.png", plot = p, width = 16, height = 9)
+
