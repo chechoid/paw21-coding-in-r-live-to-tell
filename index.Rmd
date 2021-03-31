@@ -43,7 +43,7 @@ meta() %>%
       "Developed by Sergio Garcia Mora."
     ),
     url = "https://coding-in-r-in-hr.netlify.app/",
-    image = "https://github.com/r4hr/kiwi2020/blob/main/kiwi-cover.png?raw=true",
+    image = "https://github.com/chechoid/paw21-coding-in-r-live-to-tell/blob/main/Archivos/portada.png",
     image_alt = paste(
       "Coding in R in HR: A Quick Guide to Learning to Code, and Live to Tell the Tale", 
       "Tucana's People Analytics World 2021", 
