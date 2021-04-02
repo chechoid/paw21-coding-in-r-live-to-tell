@@ -1,6 +1,10 @@
 ---
 title: "Coding in R in HR"
 subtitle: "A Quick Guide to Learning to Code <br> and Live to Tell the Tale"
+author: 
+  - "People Analytics World 2021"
+  - "Sergio Garcia Mora"
+  - "sergio@d4hr.com"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -70,11 +74,11 @@ class: inverse, center, middle
 
 --
 
-Nowadays, and thanks to the community of developers you can use R to a lot more of things, expanding its capabilities.
+Nowadays, and thanks to the community of developers who expanded its capabilities, you can use R to do a lot of things.
 
 --
 
-You can work with any kind of data, and make any analysis that you ca02n imagine.
+You can work with any kind of data, and make any analysis that you can imagine.
 
 ---
 class: inverse, center, middle
@@ -84,19 +88,19 @@ class: inverse, center, middle
 ## Predictive Analytics
 
 .pull-left[
-`r emo::ji("crystal")` A well know use case, is to perform *predictive analysis*, for instance to predict Employee's Attrition.
+`r emo::ji("crystal")` A well known use case, is to perform *predictive analysis*, for instance to predict Employee's Attrition.
 
 ```{r pred1, echo=FALSE}
-library(tidyverse) # Limpiar y manipular datos
-library(caret) # Paquete para hacer análisis predictivos
-library(rpart)
-library(pROC)
+library(tidyverse)
+library(caret) 
 
 
 
-# Cargo los datos desde una página web
+# Load data from a github repositary
+# Cargo los datos desde un repositorio de github
 datos_rh <- read_csv("https://raw.githubusercontent.com/mlambolla/Analytics_HR_Attrition/master/HR_comma_sep.csv")
 
+# Remove 'sales' variable and convert 'salary' into a numeric variable
 # Elminamos la variable 'sales' y cambiemos los valores de 'salary' a numéricos.
 datos_rh <- datos_rh %>% 
   select(-sales) %>%
@@ -106,68 +110,78 @@ datos_rh <- datos_rh %>%
     salary == 'high' ~ 2
   )))
 
-
+# Set a seed to reproduce results
 # Defino una semilla para poder replicar los resultados
 set.seed(234)
 
+# Divide the dataset into training and testing datasets
 # Parto el índice para dividir el dataset en training y test
 modelo_hr <- createDataPartition(y = datos_rh$left, p = 0.7,
                                  list = FALSE)
 
-
+# Create training dataframe[row, column]
 #Armo el dataframe de training [fila, columna]
 modelo_hr_train <- datos_rh[modelo_hr,]
 
+# Using the "-" (minus) we create the testing dataframe  with all the rows 'that are not in modelo_hr'
 # Con el signo - (menos), creamos el dataset de testing, con todas las filas 'que no estén en modelo_hr'
 modelo_hr_test <- datos_rh[-modelo_hr,]
 
-
-# Calculamos un modelo de entrenamiento
+# Create a model with the training dataframe
+# Creamos el modelo con el dataframe de training
 modelo_glm2 <- glm(left ~. , family = "binomial",
                    data = modelo_hr_train)
 
-
+# Train the model estimating probabiliteis with the training dataset
 # Entreno el modelo - Calculo las probabilidades en los datos de entrenamiento
 pred_train <- predict(modelo_glm2, newdata = modelo_hr_train, type = "response")
 
-
+# Then use these calculations in the testing dataset
 # Luego aplica esos cálculos en el dataset de test
 pred_test <- predict(modelo_glm2, newdata = modelo_hr_test, type = "response")
 
-
+# Asign probabilities to a new column called "score"
 # Asigna las probabilidades a una variable nueva llamada "score".
 modelo_hr_test$score <- pred_test
 
-
+# Create a new column base on the "score" column, when score is > 0.5 assign a 1, and if not, set a 0
 # Luego en base al score, asigno una clase predicha en función a si la probabilidad es mayor a 0.5
 modelo_hr_test <- modelo_hr_test %>% 
   mutate(prediccion = ifelse(score > 0.5, 1, 0))
 
-#### Analizando la calidad del modelo ####
-
+# Create a confusion matrix
 # Creo la matriz de confusión
 conf_matrix <- table(modelo_hr_test$prediccion, modelo_hr_test$left)
 
-#### Árbol de Decisión ####
+# Decision trees ----
+# Árbol de Decisión
 
+library(rpart)
+
+# Set training and testing datasets
+# Creo los datasets de training y de test
 arbol_hr_train <- rpart(left ~., data = modelo_hr_train, method = "class")
 arbol_hr_test <- predict(arbol_hr_train, newdata = modelo_hr_test)
 
+# Add the model results to the test dataframe
 #Agrego los resultados del modelo a los datos de test
 modelo_hr_test$score_arbol <- arbol_hr_test[,2]
 modelo_hr_test <- modelo_hr_test %>% 
   mutate(prediccion_arbol = ifelse(score_arbol > 0.5, 1, 0))
 
-# Creamos la matriz de confusión, con los valores predichos y los valores reales de la variable target.
+# Create a confusion matrix
+# Creamos la matriz de confusión.
 conf_matrix_arbol <- table(modelo_hr_test$prediccion_arbol, modelo_hr_test$left)
-
 
 ```
 
 ]
 .pull-right[
 ```{r pred2, echo=FALSE, fig.show='hold'}
+library(pROC)
 
+# Plot ROC curves for the logistic regression and the decision tree models
+# Grafico las curvas ROC para la regresión logística y el árbol de decisión
 rocobj1 <- plot.roc(modelo_hr_test$left, modelo_hr_test$score,
                     main="Curva ROC",percent=TRUE, col="#1c61b6")
 
@@ -442,7 +456,7 @@ You can check this example by [Edward Parker](https://www.lshtm.ac.uk/aboutus/pe
 ---
 ## Plots
 
-You can do any kind of plot in R.
+You can make any kind of plot in R.
 
 ```{r plot1, echo=FALSE, fig.show='hold', out.width="33%"}
 library(hrbrthemes) # Agrega estilos predefinidos y paletas de colores
@@ -570,7 +584,7 @@ rh %>%
 ---
 ## Plots
 
-You can do any kind of plot in R. Check this github repo by [Ariadna Angulo Brunet](https://github.com/AnguloB/datosdemiercoles) and see her work on the `#30DiasDeGráficos` challenge.
+You can make any kind of plot in R. Check this github repo by [Ariadna Angulo Brunet](https://github.com/AnguloB/datosdemiercoles) and see her work on the `#30DiasDeGráficos` challenge.
 .center[
 
 ```{r plot2, echo=FALSE, out.width="40%"}
@@ -690,7 +704,7 @@ plot.caption = element_text( face="italic", size=10, hjust = 1, color="black"))+
 library(cowplot)
   
 plot_grid(p1, p2, nrow=1, rel_widths = c(0.8, .2))
-  ggsave("05_arco.png", height = 5.89, width=8.58)
+
 ```
 
 ]
@@ -700,7 +714,7 @@ class: inverse, center, middle
 
 --
 
-### You can do
+### You can make
 --
 
 ### just
@@ -832,7 +846,7 @@ Learning to code is like starting to practice a new sport when you're 40 and it'
 
 So know that is going to be painful, messy, ugly, and frustrating.
 
-But it can be fun as well.
+But it can be fun as well and you have to find ways to feel like you're achieving something.
 
 And when your first code runs you'd feel like:
 ]
@@ -866,6 +880,39 @@ class: center, middle
 * `r emo::ji("king")` Meme Manager in several communities
 
 ]
+
+---
+# R is so much more than Statistics
+
+R was conceived as a statistical analysis language... but it's much more than that. R has so many packages and expanded its capabilities so much that it can make our daily work far more easy.
+
+--
+
+In R you can:
+
+* Collect data from multiple sources `r emo::ji("juggle")`
+
+--
+
+* Automate reports with `R Markdown` `r emo::ji("cool")`
+
+--
+
+* Make presentations, like this one with `xaringan` package `r emo::ji("+1")`
+
+--
+
+* `r emo::ji("chart")` Make dashboards with `flexdashboard` package
+
+
+--
+
+* `r emo::ji("rockstar")` Share your work, and reproduce it. 
+
+--
+
+* Write books `r emo::ji("book")`, create blogs `r emo::ji("bubble")`... and more
+
 ---
 ## The advantage of starting from scratch
 
@@ -876,42 +923,16 @@ class: center, middle
 ]
 
 .pull-right[
-Peter Thiel, with his analogy of going *from zero to one*, he points out that you're creating something new and disruptive, that solves a problem that no one had thought of before.
+Peter Thiel, with his analogy of going *from zero to one*, points out that when you're creating something new and disruptive, that solves a problem that no one had thought of before, you're moving from zero to one.
 
 Even though we're not reinventing the wheel by using R in our organizations, when you create your first analysis, your first report, or just making a simple presentation using R, **something can change** in your organization.
 
 The main advantage of starting something from scratch is that you have a lot of room to improve, and every minor change you make, will have a huge impact.
 ]
-
----
-# R is so much more than Statistics
-
-R was conceived as a statistical analysis language... but it's much more than that. R has so many packages and expanded its capabilities so much that it can make our daily work far more easy.
-
---
-In R you can:
-
-* Make presentations, like this one with `xaringan` package `r emo::ji("+1")`
-
---
-* Collect data from multiple sources `r emo::ji("juggle")`
-
---
-* `r emo::ji("chart")` Make dashboards with `flexdashboard` package
-
---
-* Automate reports with `R Markdown` `r emo::ji("cool")`
-
---
-* `r emo::ji("rockstar")` Share your work, and reproduce it. 
-
---
-* Write books `r emo::ji("book")`, create blogs `r emo::ji("bubble")`... and more
-
 ---
 # 4 Tips for learning to code
 
-There's no secret recipe to learning to code, it takes time, practice, patience, and persistance. Nevertheless, these tips can be helpful:
+There's no secret recipe to learning to code, it takes time, practice, patience, and persistence. Nevertheless, these tips can be helpful:
 
 --
 * `r emo::ji("clown") `Have fun with projects.
@@ -920,10 +941,10 @@ There's no secret recipe to learning to code, it takes time, practice, patience,
 * `r emo::ji("lifter") `Find support in R communities.
 
 --
-* `r emo::ji("dog")` Be gentle with yourself.
+* `r emo::ji("calendar")` Set deadlines.
 
 --
-* `r emo::ji("calendar")` Set deadlines.
+* `r emo::ji("dog")` Be gentle with yourself.
 
 ---
 
@@ -933,9 +954,11 @@ There's no secret recipe to learning to code, it takes time, practice, patience,
 
 ### Find support in R communities
 
+### Set deadlines
+
 ### Be gentle with yourself
 
-### Set deadlines
+
 
 ]
 
@@ -1046,9 +1069,331 @@ library(ggbernie) # Load library
 
 # Plot
 ggplot(d1) +
-  geom_bernie(aes(x = role, y = mean_salary), 
+  geom_bernie(aes(x = role, y = mean_salary), #<<
               bernie = "sitting") + #<<
   labs(title = "Introducing: ggbernie by R-CoderDotCom",
        caption = "GitHub: https://github.com/R-CoderDotCom/ggbernie")
 ```
 
+---
+.left-column[
+
+### Have fun with projects
+
+### **Find support in R communities**
+
+### Set deadlines
+
+### Be gentle with yourself
+
+
+]
+
+.right-column[
+Something **amazing** about R are the R User Groups and their communities from all around the globe.
+
+There are tons of RUG, and R-Ladies groups that organize workshops, provide support (beyond R most of the time), write books and share them for free. They translate cheatsheets, they care to be inclusive, organize meetups and conferences, share content, and most important, they let you know that you are not alone in this journey.
+
+In the same spirit, we've created for the Spanish Speaking HR professionals our comunity **[Club de R para RRHH](https://linktr.ee/r4hrclub)**.
+
+You can also find great resources aimed to People Analytics and HR professionals. For instance check [Hendrik Feddersen](https://www.linkedin.com/in/hendrikfeddersen/)'s *["HR Analytics in R"](https://hranalyticslive.netlify.app/index.html)* book, and [Keith McNulty](https://www.linkedin.com/in/keith-mcnulty/)'s *["Handbook of Regression Modeling in People Analytics"](http://peopleanalytics-regression-book.org/)*. 
+
+You can find every R User Group in the world in [this link](https://benubah.github.io/r-community-explorer/rugs.html) `r emo::ji("party")`
+]
+
+---
+### #TidyTuesday
+
+*Tidy Tuesday* is a initiative organized by the global R community, in which every tuesday, they share a dataset so anyone can practice and share their work. Search for the hashtag `#TidyTuesday` on Twitter to know more.
+
+The Latin American and Spanish communities develop a similar project with the hashtag `#DatosDeMiercoles`.
+
+These are very helpful because you can copy someone's analysis and then use it with your own data.
+
+So, let's see an example.
+
+---
+
+### Wine vacations
+
+Imagine that you're traveling to Argentina, and you want to visit the best Wine Cellar in Mendoza, the most renowned province, to taste the best Malbec wines.
+
+So let's explore a [Wine Ratings Dataset](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-05-28) to find where the best Malbec are produced.
+
+Cheers! `r emo::ji("wine")`
+
+.center[
+<img src="https://news.agrofystatic.com/vino_malbec_agrofy_news.jpg?d=620x375", width="40%" />
+]
+---
+
+### Wine vacations
+
+.pull-left[ Let's load the data, and filter by `Mendoza Province`.
+
+```{r wine1}
+library(tidyverse)
+
+# Load data
+wine_ratings <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-05-28/winemag-data-130k-v2.csv")
+
+wine_ar <- wine_ratings %>% 
+  filter(province == "Mendoza Province") 
+
+dim(wine_ar) # Explore dataset
+
+
+```
+
+]
+
+--
+
+.pull-right[
+Too many wine makers `r emo::ji("scared")`
+
+```{r wine2}
+wine_ar %>% 
+  summarise(n_winery = unique(winery))
+```
+
+]
+
+---
+### Wine vacations
+
+.pull-left[
+So, let's filter data by `Malbec` and see the zones where we can find the higher rated Malbec wines.
+
+```{r wine3, results='hide'}
+wine_ar %>% 
+  filter(variety == "Malbec") %>% 
+  group_by(region_1) %>% 
+  summarise(avg_points = mean(points)) %>% 
+  arrange(-avg_points)
+```
+
+]
+
+.pull-right[
+```{r ref.label="wine3", echo=FALSE}
+
+```
+
+]
+
+---
+### Wine vacations
+
+.pull-left[
+Now, let's make a decision.
+
+```{r wine4, fig.show='hide'}
+wine_ar %>% 
+  filter(variety == "Malbec",
+         region_1 == "Perdriel") %>% 
+  ggplot(aes(x = points, y = price, color = winery)) +
+  geom_point(size = 6, alpha = 0.6, position = "jitter") +
+  ggthemes::scale_color_colorblind() +
+  theme_minimal()
+```
+
+]
+
+.pull-right[
+```{r ref.label="wine4", echo=FALSE}
+
+```
+
+]
+
+---
+### Now use it with your own data
+
+With this similar scheme, we could analyze ratings from the training programs of a company, and make a ranking of the best suppliers that are most aligned with the goals of the area.
+
+Basically, we'll reproduce our *Wine vacations* project but with our own data.
+
+--
+
+I'll use a silly package called `noah` to anonymize the vendors data, developed by [Tobias Busch](https://teebusch.github.io/noah/.)
+
+.right[
+<img src="https://teebusch.github.io/noah/reference/figures/logo.png" />
+]
+
+---
+### Ranking of Training Suppliers
+
+.pull-left[In this step, we're loading the data, anonymizing the supplier's names, and computing the average rating of alignment for each vendor.
+```{r training-analysis1, results='hide'}
+library(noah)
+
+# Load data
+training_ratings <- read_delim("data/training_ratings.csv", delim = ";")
+
+# Anonymizing and estimating average aligment
+(training_analysis <- training_ratings %>% 
+    mutate(pseudo_supplier = pseudonymize(supplier)) %>% 
+    group_by(pseudo_supplier) %>% 
+    summarise(alignment = mean(area_goals_alignment))) 
+  
+```
+]
+
+.pull-right[
+```{r ref.label="training-analysis1", echo=FALSE}
+
+```
+]
+---
+### Ranking of Training Suppliers
+
+.pull-left[
+```{r ref.label="training-analysis2", echo=FALSE}
+
+```
+
+]
+
+.pull-right[
+Let's plot the ranking.
+```{r training-analysis2, fig.show='hide'}
+ggplot(training_analysis, aes(x = alignment, 
+                              y = reorder(pseudo_supplier, alignment))) + 
+  geom_col(fill = "#d6dbdf") +
+  labs(title = "Ranking of Training Vendors \n by Average Goal Aligment",
+       x = "% Alignment",
+       y = "Supplier",
+       caption = "Data randomly generated") +
+  theme_minimal() +
+  geom_vline(xintercept = 0.6,
+             color = "red",
+             linetype = 2)
+```
+
+]
+
+---
+.left-column[
+
+### Have fun with projects
+
+### Find support in R communities
+
+### **Set deadlines**
+
+### **Be gentle with yourself**
+
+
+
+]
+
+.right-column[
+
+Something that has worked for me are **deadlines**. Knowing that I have to deliver an analysis for a specific date, drives me to find a way to work things out.
+]
+
+--
+
+.right-column[And finally, if you're starting to code, and nothing seems to work, know that we all have been there. It takes time, patience and persistence to learn to code and use it at work.
+]
+--
+.right-column[
+So, if nothing seems to work, ask for help within the different R communities, find a community, or just build it on your own. You don't have to be an expert to do it.
+]
+
+--
+.right-column[
+Don't be afraid to leave a course if you don't understand something. Search for teachers, courses, and sources that are a best fit for you.]
+
+--
+.right-column[
+And remember that you don't have to be a genius to use R. You can use it for easy (or not so easy) tasks like assembling data from multiple Excel files, or making a presentation to show results in a much faster and precise way.
+
+]
+
+---
+class: inverse middle center
+# Conclusions
+
+---
+# Conclusions
+
+* R is an amazing journey. It can take as far as you can imagine.
+
+--
+
+* Look for mind-like communities that boost your skills, and lift you whenever you need help.
+
+--
+
+* Share what you know. You'll get feedback to improve your work and you'll be empowering someone else to learn from you.
+
+
+
+---
+# Conclusions
+
+.pull-left[
+<img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/r_first_then.png" width="70%"/>
+
+.bottom[Illustration by Allison Horst.]
+]
+
+.pull-right[
+
+> *"Learning is acquiring power (that's why it takes a lot of work), but is a power that doesn't fade away, and once it's acquired, no one can take it away from you.*
+
+> *Because that's how knowledge works, it doesn't extinguish when you use it, and you don't lose it when you share it.*
+
+> *That means that when we teach, when we share our knowledge, we share our materials in a free, reusable way and in our own language, what we are doing is **delivering power**."*
+
+> [Yanina Bellini Saibene](https://twitter.com/yabellini). Researcher at INTA. Global Chair of LatinR_Conf.
+
+
+]
+
+---
+# Let's connect!
+
+.pull-left[
+`r icons::fontawesome("link")` Presentation: [bit.ly/paw21-r4hr](https://bit.ly/paw21-r4hr)
+
+`r icons::fontawesome("linkedin")` [LinkedIn](https://www.linkedin.com/in/sergiogarciamora/?locale=en_US)
+
+`r icons::fontawesome("twitter")` [Twitter](https://twitter.com/sergiogarciamor)
+
+`r icons::fontawesome("paper-plane")` [Telegram](https://t.me/SergioGarciaMora)
+
+`r icons::fontawesome("envelope")` [sergio@d4r.com](mailto:sergio@d4hr.com)
+
+]
+
+.pull-right[
+<img src="https://media.giphy.com/media/fWfowxJtHySJ0SGCgN/giphy.gif" />
+]
+
+---
+class: inverse, middle, center
+# ACKNOWLEDGEDMENTS & CREDITS
+
+---
+# Acknowledgments
+
+.pull-left[
+
+]
+
+.pull-right[
+I want to say thank you to:
+
+`r emo::ji("red_heart")` Jesica & Jazmin for their constant support and love. 
+
+Barry Swales and the entire Tucana organization for pulling off such a terrific event.
+
+To Marta Gascón Corella for her generosity and for thinking of me to be part of #PAWorld2021.
+
+To the AMAZING R community from Latin America and all around the globe.
+
+]

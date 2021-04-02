@@ -1,0 +1,102 @@
+id_training;program;id_emp;satisfaction;facilitator_score;materials_satisfaction;willing_reccomend;area_goals_alignment;work_aplication;scrap_learning;supplier
+129;5 por qué/ Problem Solving;892;8;4;8;8;0.4;1;0;INTERNO
+129;5 por qué/ Problem Solving;898;7;2;9;7;0.5;0.6;0.4;INTERNO
+129;5 por qué/ Problem Solving;1499;2;8;5;8;0.9;0.4;0.6;INTERNO
+129;5 por qué/ Problem Solving;1695;5;10;9;1;0.6;0.9;0.1;INTERNO
+145;5 por qué/ Problem Solving;967;6;10;9;4;0.4;0.9;0.1;INTERNO
+41;Adm. de personal ;804;10;6;7;5;0.1;0.1;0.9;INTERNO
+41;Adm. de personal ;879;5;6;4;1;0.6;0.8;0.2;INTERNO
+41;Adm. de personal ;1454;9;7;1;2;0.5;0.1;0.9;INTERNO
+41;Adm. de personal ;1455;8;4;1;10;0.6;0.3;0.7;INTERNO
+41;Adm. de personal ;3009;4;7;8;8;0.7;0.5;0.5;INTERNO
+41;Adm. de personal ;3048;2;1;5;7;0.4;0.4;0.6;INTERNO
+64;Administración de inventarios y rotación de stock;511;8;10;1;8;0.9;0.1;0.9;Estudio Axenfeld
+64;Administración de inventarios y rotación de stock;980;6;6;9;5;0.6;1;0;Estudio Axenfeld
+147;Administración operativa de depósitos;3190;10;8;7;5;0.3;0.9;0.1;Capacitarte UBA
+147;Administración operativa de depósitos;1631;8;4;1;5;0.9;0.1;0.9;Capacitarte UBA
+147;Administración operativa de depósitos;955;10;6;9;9;0.7;0.4;0.6;Capacitarte UBA
+19;CATIA Nivel 1;860;9;6;10;1;0.6;0.6;0.4;CARDIX
+19;CATIA Nivel 1;841;1;1;4;6;0.2;1;0;CARDIX
+19;CATIA Nivel 1;939;2;3;8;3;1;0.2;0.8;CARDIX
+15;CEP ;1368;6;8;4;2;0.2;1;0;INTERNO
+15;CEP ;1423;3;6;8;6;0.4;1;0;INTERNO
+15;CEP ;1728;7;10;4;6;0.1;0.3;0.7;INTERNO
+29;Comunicación Eficaz;1611;8;3;6;7;0.4;0.6;0.4;E&Y
+2;Convertidores de Frecuencia;1705;3;1;5;7;0.8;0.1;0.9;SEW Eurodrive
+2;Convertidores de Frecuencia;1702;1;4;2;8;0.4;0.9;0.1;SEW Eurodrive
+2;Convertidores de Frecuencia;1714;9;9;7;4;1;0.3;0.7;SEW Eurodrive
+83;Curso de Especialización en Logística;1730;5;6;6;10;0.6;0.8;0.2;ITBA
+99;Evaluación de desempeño;1667;7;1;10;5;0.5;0.2;0.8;TBD
+99;Evaluación de desempeño;1670;7;3;3;9;0.2;0.9;0.1;TBD
+21;Excel I;1091;1;9;2;1;0.5;0.2;0.8;EXO S.A
+67;Excel I;882;9;10;3;10;0.1;0.4;0.6;EXO S.A
+14;Excel I;872;3;9;10;5;1;0.8;0.2;EXO S.A
+14;Excel I;1310;2;4;7;6;0.5;0.6;0.4;EXO S.A
+85;Excel II;1414;2;7;10;6;0.3;0.8;0.2;EXO S.A
+133;Excel II;1730;3;4;1;10;0.2;0.7;0.3;EXO S.A
+133;Excel II;1712;5;1;10;2;0.8;0.9;0.1;EXO S.A
+133;Excel II;828;1;5;6;4;0.2;0.5;0.5;EXO S.A
+133;Excel II;958;5;8;9;10;0.5;0.7;0.3;EXO S.A
+133;Excel II;3117;3;10;1;3;0.6;0.8;0.2;EXO S.A
+133;Excel II;967;5;7;5;8;0.6;0.3;0.7;EXO S.A
+133;Excel II;1631;7;8;3;6;1;0.7;0.3;EXO S.A
+133;Excel II;741;5;4;10;6;0.9;1;0;EXO S.A
+133;Excel II;980;4;5;9;7;0.4;1;0;EXO S.A
+133;Excel II;1138;7;5;7;2;0.4;0.3;0.7;EXO S.A
+133;Excel II;1437;8;3;1;5;1;0.8;0.2;EXO S.A
+96;FIM I  DESARROLLO GERENCIAL;1722;9;6;5;10;1;0.9;0.1;E&Y
+96;FIM I  DESARROLLO GERENCIAL;1423;9;4;6;9;0.3;0.4;0.6;E&Y
+96;FIM I  DESARROLLO GERENCIAL;1728;8;10;1;7;0.8;0.1;0.9;E&Y
+96;FIM I  DESARROLLO GERENCIAL;1453;6;7;3;5;0.3;1;0;E&Y
+96;FIM I  DESARROLLO GERENCIAL;1627;1;4;1;4;0.8;0.5;0.5;E&Y
+96;FIM I  DESARROLLO GERENCIAL;1686;2;1;3;1;0.2;0.2;0.8;E&Y
+96;FIM I  DESARROLLO GERENCIAL;1709;9;10;2;5;0.6;1;0;E&Y
+96;FIM I  DESARROLLO GERENCIAL;1724;4;2;10;1;1;0.1;0.9;E&Y
+96;FIM I  DESARROLLO GERENCIAL;1726;3;8;8;10;0.9;0.8;0.2;E&Y
+96;FIM I  DESARROLLO GERENCIAL;1667;6;1;4;10;0.1;0.7;0.3;E&Y
+96;FIM I  DESARROLLO GERENCIAL;1682;1;3;9;4;0.2;0.3;0.7;E&Y
+97;FIM II DESARROLLO GERENCIAL;1681;8;3;4;3;0.6;0.7;0.3;E&Y
+97;FIM II DESARROLLO GERENCIAL;791;6;4;3;7;0.7;0.9;0.1;E&Y
+97;FIM II DESARROLLO GERENCIAL;1454;6;5;7;2;0.9;0.1;0.9;E&Y
+97;FIM II DESARROLLO GERENCIAL;1688;7;4;3;4;0.5;0.8;0.2;E&Y
+97;FIM II DESARROLLO GERENCIAL;1708;9;6;3;7;0.3;0.8;0.2;E&Y
+97;FIM II DESARROLLO GERENCIAL;1683;9;4;9;6;0.6;0.2;0.8;E&Y
+97;FIM II DESARROLLO GERENCIAL;1692;4;9;2;8;0.9;0.9;0.1;E&Y
+97;FIM II DESARROLLO GERENCIAL;1670;2;4;3;3;0.2;0.1;0.9;E&Y
+97;FIM II DESARROLLO GERENCIAL;1706;5;5;3;6;0.9;0.8;0.2;E&Y
+22;Instalaciones eléctricas industriales/Int. a la Eelctrotecnia Industrial;1611;4;4;9;6;0.1;1;0;UTN
+22;Instalaciones eléctricas industriales/Int. a la Eelctrotecnia Industrial;918;10;3;6;9;0.5;0.6;0.4;UTN
+56;Inteligencia Emocional/Rel. Interpersonales;1688;1;6;8;5;0.7;0.4;0.6;Dale Carnegie
+102;Maestría en RR.HH.;1667;5;5;5;8;0.4;0.2;0.8;UBA ECO
+100;Negociación (Univ. Torcuato Di Tella);1670;6;2;9;5;0.6;0.6;0.4;Univ. Torcuato Di Tella
+3;Introducción a la Servotecnología;1722;10;3;3;4;0.1;0.3;0.7;SEW Eurodrive
+3;Introducción a la Servotecnología;1705;2;3;2;7;0.1;1;0;SEW Eurodrive
+3;Introducción a la Servotecnología;1714;5;3;10;10;0.2;0.2;0.8;SEW Eurodrive
+123;Lean Manufacturing;1368;5;5;2;8;0.6;0.8;0.2;SETEC
+123;Lean Manufacturing;1716;10;7;1;4;0.1;0.8;0.2;SETEC
+123;Lean Manufacturing;3051;3;9;10;3;0.8;0.3;0.7;SETEC
+101;MBA;1699;7;8;2;9;0.8;0.1;0.9;Univ. Torcuato Di Tella
+61;MS Project;1303;6;3;3;8;0.3;0.3;0.7;Competitive PM
+61;MS Project;1427;3;6;2;4;0.4;0.8;0.2;Competitive PM
+61;MS Project;1429;8;5;2;8;0.4;0.3;0.7;Competitive PM
+61;MS Project;1674;8;5;10;6;0.8;0.5;0.5;Competitive PM
+61;MS Project;1680;7;8;9;6;0.7;0.9;0.1;Competitive PM
+61;MS Project;1688;10;6;1;5;0.9;0.6;0.4;Competitive PM
+61;MS Project;1691;7;5;2;6;0.2;0.4;0.6;Competitive PM
+61;MS Project;1692;9;10;10;6;1;0.6;0.4;Competitive PM
+61;MS Project;1708;3;6;6;6;0.1;0.7;0.3;Competitive PM
+61;MS Project;1739;4;2;9;3;0.5;0.6;0.4;Competitive PM
+61;MS Project;1759;1;1;8;9;0.7;0.5;0.5;Competitive PM
+61;MS Project;1771;7;9;10;7;0.9;1;0;Competitive PM
+36;PCP ;1618;5;4;6;8;0.6;0.9;0.1;Schneider
+36;PCP ;1606;1;5;10;7;0.9;0.3;0.7;Schneider
+136;Planificación de la Producción;1640;8;8;9;4;1;0.7;0.3;Estudio Axenfeld
+13;Presentaciones orales eficaces (módulo FIM 1);1728;5;2;5;1;0.9;0.5;0.5;E&Y
+92;Presentaciones orales eficaces (RCDW);1634;6;8;4;5;0.3;0.2;0.8;E&Y
+37;Selec. Dimens. y Mant. de motores asincrónicos de BT ;597;1;2;9;5;0.7;0.7;0.3;Schneider
+37;Selec. Dimens. y Mant. de motores asincrónicos de BT ;1606;5;8;4;5;0.7;1;0;Schneider
+66;TGBT “Tablero de distribución en baja tensión”;597;1;2;5;2;0.4;0.8;0.2;Schneider
+35;TGBT “Tablero de distribución en baja tensión”;1472;2;6;5;5;0.9;0.7;0.3;Schneider
+35;TGBT “Tablero de distribución en baja tensión”;867;8;4;10;5;0.1;0.1;0.9;Schneider
+51;Toyota Production System (herramientas de gestión);1688;10;4;2;5;0.5;0.5;0.5;TBD
+51;Toyota Production System (herramientas de gestión);1771;1;8;10;5;0.3;0.7;0.3;TBD

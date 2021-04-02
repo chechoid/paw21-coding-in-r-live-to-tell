@@ -639,4 +639,59 @@ p1 +
   scale_fill_got(discrete = T, option = "Stark2") +
   labs(title = "Introducing: gameofthrones package by Alejandro Jiménez",
        caption = "GitHub: https://github.com/aljrico/gameofthrones")
+
+
+
+# Example analysis ----------
+library(tidyverse)
+library(noah)
+
+wine_ratings <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-05-28/winemag-data-130k-v2.csv")
+
+wine_ar <- wine_ratings %>% 
+  filter(province == "Mendoza Province") 
+
+glimpse(wine_ar)
+
+
+wine_ar %>% 
+  summarise(n_winery = unique(winery))
+
+
+
+wine_ar %>% 
+  filter(variety == "Malbec") %>% 
+  group_by(region_1) %>% 
+  summarise(avg_points = mean(points)) %>% 
+  arrange(-avg_points)
+
+wine_ar %>% 
+  filter(variety == "Malbec",
+         region_1 == "Perdriel") %>% 
+  ggplot(aes(x = points, y = price, color = winery)) +
+  geom_point(size = 6, alpha = 0.6, position = "jitter") +
+  ggthemes::scale_color_colorblind() +
+  theme_minimal()
+
+
+training_ratings <- read_delim("data/training_ratings.csv", delim = ";")
+
+(training_analysis <- training_ratings %>% 
+    mutate(pseudo_supplier = pseudonymize(supplier)) %>% 
+    group_by(pseudo_supplier) %>% 
+  summarise(alignment = mean(area_goals_alignment))) 
   
+
+ggplot(training_analysis, aes(x = alignment, 
+                              y = reorder(pseudo_supplier, alignment))) + 
+  geom_col(fill = "#d6dbdf") +
+  labs(title = "Average Goal Aligment by Supplier",
+       x = "% Alignment",
+       y = "Supplier",
+       caption = "Data randomly generated") +
+  theme_minimal() +
+  geom_vline(xintercept = 0.6,
+             color = "red",
+             linetype = 2)
+
+icons::fontawesome("envelope")
