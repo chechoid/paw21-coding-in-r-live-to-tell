@@ -1376,24 +1376,30 @@ class: inverse middle center
 
 ---
 class: inverse, middle, center
-# ACKNOWLEDGEDMENTS & CREDITS
+# Acknowledgements, Resources and Credits
 
 ---
 # Acknowledgments
 
 .pull-left[
-
+<img src="https://media.giphy.com/media/d68IdpvmAHohx5NMEV/giphy.gif" />
 ]
 
 .pull-right[
 I want to say thank you to:
 
-`r emo::ji("red_heart")` Jesica & Jazmin for their constant support and love. 
 
-Barry Swales and the entire Tucana organization for pulling off such a terrific event.
+`r emo::ji("red_heart")` Jesica & Jazmin for their constant support, love and patience. 
 
-To Marta Gascón Corella for her generosity and for thinking of me to be part of #PAWorld2021.
+`r emo::ji("100")` Barry Swales and the entire Tucana organization for pulling off such a terrific event.
 
-To the AMAZING R community from Latin America and all around the globe.
+`r emo::ji("gold")` Marta Gascón Corella for her generosity and for thinking of me to be part of #PAWorld2021.
+
+`r emo::ji("cheers")` The AMAZING R community from Latin America and all around the globe.
+
+`r emo::ji("hooray")` Everyone who has joined the Club de R para RRHH. I'd never get this far without you.
+
+`r emo::ji("spock")` My mentors Luis Maria Cravino and Tracey Smith, you'd been a great inspiration and a drive for constantly being learning.
+
 
 ]
